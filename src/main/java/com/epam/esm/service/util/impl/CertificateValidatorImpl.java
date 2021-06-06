@@ -2,13 +2,13 @@ package com.epam.esm.service.util.impl;
 
 import com.epam.esm.dao.request.CertificateSearchCriteria;
 import com.epam.esm.dao.sort.SortBy;
-import com.epam.esm.service.exception.ErrorCodeEnum;
 import com.epam.esm.model.GiftCertificate;
+import com.epam.esm.service.exception.ErrorCodeEnum;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.util.CertificateValidator;
 import org.springframework.stereotype.Component;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Component
 public class CertificateValidatorImpl implements CertificateValidator {
@@ -67,7 +67,7 @@ public class CertificateValidatorImpl implements CertificateValidator {
         }
     }
 
-    private void validateCreateAndUpdateDates(ZonedDateTime createDate, ZonedDateTime updateDate)
+    private void validateCreateAndUpdateDates(LocalDateTime createDate, LocalDateTime updateDate)
             throws ServiceException {
         if (createDate == null && updateDate == null) {
             return;

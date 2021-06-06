@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -39,7 +40,7 @@ class GiftCertificateDaoImplTest {
         certificate.setDescription("Certificate description");
         certificate.setPrice(99.99);
 
-        certificate.setCreateDate(ZonedDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
+        certificate.setCreateDate(LocalDateTime.now());
         certificate.setLastUpdateDate(certificate.getCreateDate());
         certificate.setDuration(10);
 

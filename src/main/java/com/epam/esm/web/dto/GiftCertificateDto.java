@@ -4,6 +4,7 @@ import com.epam.esm.model.GiftCertificate;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -17,8 +18,8 @@ public class GiftCertificateDto extends RepresentationModel<GiftCertificateDto> 
     private String name;
     private String description;
     private double price;
-    private ZonedDateTime createDate;
-    private ZonedDateTime lastUpdateDate;
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdateDate;
     private int duration;
     private Set<EntityModel<TagDto>> tags = new HashSet<>();
 
@@ -74,19 +75,19 @@ public class GiftCertificateDto extends RepresentationModel<GiftCertificateDto> 
         this.price = price;
     }
 
-    public ZonedDateTime getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(ZonedDateTime createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public ZonedDateTime getLastUpdateDate() {
+    public LocalDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(ZonedDateTime lastUpdateDate) {
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

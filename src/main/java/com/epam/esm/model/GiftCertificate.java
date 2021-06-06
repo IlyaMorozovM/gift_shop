@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -37,10 +38,10 @@ public class GiftCertificate implements BaseModel {
     private double price;
 
     @Column(name = "CreateDate", updatable=false)
-    private ZonedDateTime createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "LastUpdateDate")
-    private ZonedDateTime lastUpdateDate;
+    private LocalDateTime lastUpdateDate;
 
     @Min(value = 1, message = "duration must be greater than 0")
     @Column(name = "Duration")
@@ -92,19 +93,19 @@ public class GiftCertificate implements BaseModel {
         this.price = price;
     }
 
-    public ZonedDateTime getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(ZonedDateTime createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public ZonedDateTime getLastUpdateDate() {
+    public LocalDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(ZonedDateTime lastUpdateDate) {
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 

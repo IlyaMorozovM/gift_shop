@@ -4,6 +4,7 @@ import com.epam.esm.model.Order;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +16,7 @@ public class OrderDto extends RepresentationModel<OrderDto> {
 
     private int id;
     private double totalCost;
-    private ZonedDateTime createDate;
+    private LocalDateTime createDate;
     private Set<EntityModel<GiftCertificateDto>> giftCertificateList = new HashSet<>();
 
     public static OrderDto of(Order order) {
@@ -51,11 +52,11 @@ public class OrderDto extends RepresentationModel<OrderDto> {
         this.totalCost = totalCost;
     }
 
-    public ZonedDateTime getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(ZonedDateTime createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 

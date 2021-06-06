@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +57,8 @@ class GiftCertificateServiceImplTest {
         giftCertificate.setName("Tourism");
         giftCertificate.setDescription("Description");
         giftCertificate.setPrice(10);
-        giftCertificate.setCreateDate(ZonedDateTime.now());
-        giftCertificate.setLastUpdateDate(ZonedDateTime.now());
+        giftCertificate.setCreateDate(LocalDateTime.now());
+        giftCertificate.setLastUpdateDate(LocalDateTime.now());
         giftCertificate.setDuration(10);
         Tag tag = new Tag(1, "spa");
         giftCertificate.getTags().add(tag);

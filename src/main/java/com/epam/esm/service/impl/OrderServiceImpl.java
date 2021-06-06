@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -132,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
     public Order addOrder(Order order) throws ServiceException {
         orderValidator.validateOrder(order);
 
-        order.setCreateDate(ZonedDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
+        order.setCreateDate(LocalDateTime.now());
 
         try {
             User userOfOrder = userService.getUserById(order.getUser().getId());

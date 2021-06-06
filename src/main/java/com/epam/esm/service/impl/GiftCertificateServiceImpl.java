@@ -21,9 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +29,7 @@ import java.util.Set;
 public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     private static final Logger LOGGER = LogManager.getLogger(GiftCertificateServiceImpl.class);
+    private static final ZoneId DEFAULT_ZONE = ZoneOffset.UTC;
 
     private final GiftCertificateDAO giftCertificateDao;
     private final CertificateValidator certificateValidator;
@@ -109,8 +108,10 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     public GiftCertificate addGiftCertificate(GiftCertificate giftCertificate) throws ServiceException {
         certificateValidator.validateCertificate(giftCertificate);
         try {
-            giftCertificate.setCreateDate(ZonedDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
-            giftCertificate.setLastUpdateDate(giftCertificate.getCreateDate());
+
+            LocalDateTime createdDate = LocalDateTime.now();
+            giftCertificate.setCreateDate(createdDate);
+            giftCertificate.setLastUpdateDate(createdDate);
 
             addOrActivateCertificateTags(giftCertificate);
 
@@ -159,7 +160,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         giftCertificate.setId(id);
         certificateValidator.validateCertificate(giftCertificate);
         try {
-            giftCertificate.setLastUpdateDate(ZonedDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
+            giftCertificate.setLastUpdateDate(LocalDateTime.now());
 
             giftCertificate = giftCertificateDao.updateGiftCertificate(giftCertificate);
             if (giftCertificate == null) {

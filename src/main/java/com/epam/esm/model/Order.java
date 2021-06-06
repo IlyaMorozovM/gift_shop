@@ -6,6 +6,7 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class Order implements BaseModel {
     private double totalCost;
 
     @Column(name = "CreateDate")
-    private ZonedDateTime createDate;
+    private LocalDateTime createDate;
 
     @NotNull(message = "order must have user")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -48,7 +49,7 @@ public class Order implements BaseModel {
     public Order() {
     }
 
-    public Order(int id, double totalCost, ZonedDateTime createDate, User user, Set<GiftCertificate> giftCertificateList) {
+    public Order(int id, double totalCost, LocalDateTime createDate, User user, Set<GiftCertificate> giftCertificateList) {
         this.id = id;
         this.totalCost = totalCost;
         this.createDate = createDate;
@@ -72,11 +73,11 @@ public class Order implements BaseModel {
         this.totalCost = cost;
     }
 
-    public ZonedDateTime getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(ZonedDateTime createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
