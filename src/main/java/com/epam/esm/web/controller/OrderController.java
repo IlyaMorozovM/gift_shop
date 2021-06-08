@@ -54,22 +54,22 @@ public class OrderController {
         paginationConfigurer.configure(page, size, orderService.getLastPage(size), sortType, sortBy);
 
         return modelAssembler.toCollectionModel(
-                OrderDto.of(orderService.getAllOrdersByPage(requestBody, page, size, sortType, sortBy)));
+                OrderDto.of(orderService.getAllByPage(requestBody, page, size, sortType, sortBy)));
     }
 
     @GetMapping("/{id}")
     public EntityModel<OrderDto> getOrder(@PathVariable @Min(1) int id) throws ServiceException {
-        return modelAssembler.toModel(OrderDto.of(orderService.getOrderById(id)));
+        return modelAssembler.toModel(OrderDto.of(orderService.getById(id)));
     }
 
     @PostMapping
     public ResponseEntity<Object> addOrder(@Valid @RequestBody Order order) throws ServiceException {
-        return new ResponseEntity<>(modelAssembler.toModel(OrderDto.of(orderService.addOrder(order))), HttpStatus.CREATED);
+        return new ResponseEntity<>(modelAssembler.toModel(OrderDto.of(orderService.add(order))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteOrder(@PathVariable int id) throws ServiceException {
-        orderService.deleteOrder(id);
+        orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

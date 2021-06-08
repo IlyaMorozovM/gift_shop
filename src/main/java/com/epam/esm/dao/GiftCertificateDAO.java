@@ -24,7 +24,7 @@ public interface GiftCertificateDAO {
      * @param name certificate name.
      * @return {@code GiftCertificate}.
      */
-    GiftCertificate getGiftCertificateByName(String name);
+    GiftCertificate getByName(String name);
 
     /**
      * Retrieves data of {@code GiftCertificate} from
@@ -34,7 +34,7 @@ public interface GiftCertificateDAO {
      * @param certificateId certificate id.
      * @return {@code Order}.
      */
-    GiftCertificate getGiftCertificateById(int certificateId);
+    GiftCertificate getById(int certificateId);
 
     /**
      * Retrieves certain number of {@code GiftCertificate} from data source.
@@ -44,7 +44,7 @@ public interface GiftCertificateDAO {
      * @param size page size of {@code GiftCertificate} to return from data source.
      * @return List<GiftCertificate> - certain number of existing gift certificates in data source.
      */
-    List<GiftCertificate> getGiftCertificatesByRequestBody(CertificateSearchCriteria searchCriteria, int page, int size);
+    List<GiftCertificate> getByRequestBody(CertificateSearchCriteria searchCriteria, int page, int size);
 
     /**
      * Retrieves number of a last page from data source if every page
@@ -61,7 +61,7 @@ public interface GiftCertificateDAO {
      * @param giftCertificate {@code GiftCertificate} which to be added to data source.
      * @return added {@code GiftCertificate} from data source.
      */
-    GiftCertificate addGiftCertificate(GiftCertificate giftCertificate) throws PersistenceException;
+    GiftCertificate add(GiftCertificate giftCertificate) throws PersistenceException;
 
     /**
      * Deletes {@code GiftCertificate} from data source by it id
@@ -69,7 +69,7 @@ public interface GiftCertificateDAO {
      *
      * @param certificateId  id of a {@code GiftCertificate} which to delete from data source.
      */
-    void deleteGiftCertificate(int certificateId);
+    void delete(int certificateId);
 
     /**
      * Updates {@code GiftCertificate} in data source.
@@ -77,5 +77,5 @@ public interface GiftCertificateDAO {
      * @param giftCertificate {@code ServiceException} which to update in data source.
      * @return updated {@code GiftCertificate} from data source.
      */
-    GiftCertificate updateGiftCertificate(GiftCertificate giftCertificate);
+    GiftCertificate update(GiftCertificate giftCertificate);
 }

@@ -72,11 +72,11 @@ class OrderServiceImplTest {
     void whenGetOrder_thenCorrectlyReturnsItById() throws ServiceException {
         Order given = initOrder();
 
-        Mockito.when(orderDao.getOrderById(given.getId())).thenReturn(given);
+        Mockito.when(orderDao.getById(given.getId())).thenReturn(given);
 
-        Order actual = orderService.getOrderById(given.getId());
+        Order actual = orderService.getById(given.getId());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(orderDao).getOrderById(given.getId());
+        Mockito.verify(orderDao).getById(given.getId());
     }
 
     @Test
@@ -87,13 +87,13 @@ class OrderServiceImplTest {
         }
         OrderSearchCriteria givenSearchCriteria = OrderSearchCriteria.getDefaultOrderRequestBody();
 
-        Mockito.when(orderDao.getAllOrdersByPage(givenSearchCriteria, size, page))
+        Mockito.when(orderDao.getAllByPage(givenSearchCriteria, size, page))
                 .thenReturn(given);
 
-        List<Order> actual = orderService.getAllOrdersByPage(givenSearchCriteria, size, page,
+        List<Order> actual = orderService.getAllByPage(givenSearchCriteria, size, page,
                 givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(orderDao).getAllOrdersByPage(givenSearchCriteria, size, page);
+        Mockito.verify(orderDao).getAllByPage(givenSearchCriteria, size, page);
     }
 
     @Test
@@ -101,7 +101,7 @@ class OrderServiceImplTest {
         Order order = new Order();
 
         try {
-            orderService.addOrder(order);
+            orderService.add(order);
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to validate: cost must be positive", e.getMessage());
         }
@@ -112,7 +112,7 @@ class OrderServiceImplTest {
         Order given = initOrder();
 
         try {
-            orderService.deleteOrder(given.getId());
+            orderService.delete(given.getId());
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to get certificate by it id: " + given.getId(), e.getMessage());
         }
@@ -128,13 +128,13 @@ class OrderServiceImplTest {
             givenCertificates.add(initOrder(i));
         }
 
-        Mockito.when(orderDao.getAllOrdersByPage(givenSearchCriteria, page, size))
+        Mockito.when(orderDao.getAllByPage(givenSearchCriteria, page, size))
                 .thenReturn(givenCertificates);
 
-        List<Order> actual = orderService.getAllOrdersByPage(
+        List<Order> actual = orderService.getAllByPage(
                 givenSearchCriteria, page, size, givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy());
         Assertions.assertEquals(givenCertificates, actual);
-        Mockito.verify(orderDao).getAllOrdersByPage(givenSearchCriteria, page, size);
+        Mockito.verify(orderDao).getAllByPage(givenSearchCriteria, page, size);
     }
 
     @Test
@@ -147,12 +147,12 @@ class OrderServiceImplTest {
             givenCertificates.add(initOrder(i));
         }
 
-        Mockito.when(orderDao.getAllOrdersByPage(givenSearchCriteria, page, size))
+        Mockito.when(orderDao.getAllByPage(givenSearchCriteria, page, size))
                 .thenReturn(givenCertificates);
 
-        List<Order> actual = orderService.getAllOrdersByPage(
+        List<Order> actual = orderService.getAllByPage(
                 givenSearchCriteria, page, size, givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy());
         Assertions.assertEquals(givenCertificates, actual);
-        Mockito.verify(orderDao).getAllOrdersByPage(givenSearchCriteria, page, size);
+        Mockito.verify(orderDao).getAllByPage(givenSearchCriteria, page, size);
     }
 }

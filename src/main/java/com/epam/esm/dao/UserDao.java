@@ -22,7 +22,7 @@ public interface UserDao {
      * @param login user login.
      * @return {@code User}.
      */
-    User getUserByLogin(String login);
+    User getByLogin(String login);
 
     /**
      * Retrieves data of {@code User} from
@@ -32,7 +32,7 @@ public interface UserDao {
      * @param userId user userId.
      * @return {@code User}.
      */
-    User getUserById(int userId);
+    User getById(int userId);
 
     /**
      * Retrieves certain number of {@code User} from data source
@@ -44,7 +44,7 @@ public interface UserDao {
      * @param size max amount of {@code Tag} to return.
      * @return List<User> - certain number of users from data source.
      */
-    List<User> getAllUsersByPage(UserSearchCriteria searchCriteria, int page, int size);
+    List<User> getAllByPage(UserSearchCriteria searchCriteria, int page, int size);
 
     /**
      * Retrieves number of a last page from data source if every page

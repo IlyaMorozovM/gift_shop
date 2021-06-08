@@ -59,7 +59,7 @@ class OrderDaoImplTest {
 
         Mockito.when(service.getModelById(given.getId())).thenReturn(given);
 
-        Order actual = orderDao.getOrderById(given.getId());
+        Order actual = orderDao.getById(given.getId());
         Assertions.assertEquals(given, actual);
     }
 
@@ -80,7 +80,7 @@ class OrderDaoImplTest {
         Mockito.doThrow(new IllegalArgumentException()).when(service).delete(given.getId());
 
         try {
-            orderDao.deleteOrder(given.getId());
+            orderDao.delete(given.getId());
         } catch (NoResultException e) {
             Assertions.assertTrue(true);
         }
@@ -92,7 +92,7 @@ class OrderDaoImplTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        Order actual = orderDao.addOrder(given);
+        Order actual = orderDao.add(given);
         Assertions.assertEquals(given, actual);
     }
 
@@ -106,7 +106,7 @@ class OrderDaoImplTest {
 
         Mockito.when(service.getAllModelsByPage(GET_ALL_ORDERS, page, size,
                 givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy())).thenReturn(given);
-        List<Order> actual = orderDao.getAllOrdersByPage(givenSearchCriteria, page, size);
+        List<Order> actual = orderDao.getAllByPage(givenSearchCriteria, page, size);
 
         Assertions.assertEquals(given, actual);
     }

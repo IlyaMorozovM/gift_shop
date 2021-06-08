@@ -27,22 +27,22 @@ class TagServiceImplTest {
     void whenGetTag_thenCorrectlyReturnItById() throws ServiceException {
         Tag given = new Tag(1, "spa");
 
-        Mockito.when(tagDao.getTagById(given.getId())).thenReturn(given);
+        Mockito.when(tagDao.getById(given.getId())).thenReturn(given);
 
-        Tag actual = tagService.getTagById(given.getId());
+        Tag actual = tagService.getById(given.getId());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(tagDao).getTagById(given.getId());
+        Mockito.verify(tagDao).getById(given.getId());
     }
 
     @Test
     void whenGetTag_thenCorrectlyReturnItByName() throws ServiceException {
         Tag given = new Tag(1, "spa");
 
-        Mockito.when(tagDao.getTagByName(given.getName())).thenReturn(given);
+        Mockito.when(tagDao.getByName(given.getName())).thenReturn(given);
 
-        Tag actual = tagService.getTagByName(given.getName());
+        Tag actual = tagService.getByName(given.getName());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(tagDao).getTagByName(given.getName());
+        Mockito.verify(tagDao).getByName(given.getName());
     }
 
     @Test
@@ -50,7 +50,7 @@ class TagServiceImplTest {
         Tag tag = new Tag();
 
         try {
-            tagService.addTag(tag);
+            tagService.add(tag);
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to validate: tag name is empty", e.getMessage());
         }
@@ -61,11 +61,11 @@ class TagServiceImplTest {
         Tag tag = new Tag(1, "spa");
 
         try {
-            tagService.deleteTag(tag.getId());
+            tagService.delete(tag.getId());
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to delete tag because it id ("
                     + tag.getId() +") is not found", e.getMessage());
         }
-        Mockito.verify(tagDao).deleteTagById(tag.getId());
+        Mockito.verify(tagDao).deleteById(tag.getId());
     }
 }

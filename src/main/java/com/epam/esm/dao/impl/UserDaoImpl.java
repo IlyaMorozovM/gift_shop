@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByLogin(String login) {
+    public User getByLogin(String login) {
         User user = persistenceService.getModelByName(GET_USER_BY_NAME, login);
         if (user == null) {
             throw new NoResultException();
@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserById(int userId) {
+    public User getById(int userId) {
         User user = persistenceService.getModelById(userId);
         if (user == null) {
             throw new NoResultException();
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllUsersByPage(UserSearchCriteria searchCriteria, int page, int size) {
+    public List<User> getAllByPage(UserSearchCriteria searchCriteria, int page, int size) {
         List<User> users = persistenceService.getAllModelsByPage(
                 GET_ALL_USERS, page, size, searchCriteria.getSortType(), searchCriteria.getSortBy());
         removeDeletedOrdersFromUsers(users);

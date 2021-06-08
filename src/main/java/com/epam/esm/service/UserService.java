@@ -26,7 +26,7 @@ public interface UserService {
      * @throws ServiceException when failed to get {@code User}.
      * @return {@code User}.
      */
-    User getUserByLogin(String login) throws ServiceException;
+    User getByLogin(String login) throws ServiceException;
 
     /**
      * Retrieves data of {@code User} from
@@ -37,7 +37,7 @@ public interface UserService {
      * @throws ServiceException when failed to get {@code User}.
      * @return {@code User}.
      */
-    User getUserById(int userId) throws ServiceException;
+    User getById(int userId) throws ServiceException;
 
     /**
      * Retrieves {@code User} from persistence layer.
@@ -50,8 +50,8 @@ public interface UserService {
      * @throws ServiceException when failed to get {@code User}.
      * @return List<User> - users from persistence layer.
      */
-    List<User> getAllUsersByPage(UserSearchCriteria searchCriteria, int page, int size,
-                                 SortType sortType, SortBy sortBy) throws ServiceException;
+    List<User> getAllByPage(UserSearchCriteria searchCriteria, int page, int size,
+                            SortType sortType, SortBy sortBy) throws ServiceException;
 
     /**
      * Retrieves number of pages from persistence layer if every page

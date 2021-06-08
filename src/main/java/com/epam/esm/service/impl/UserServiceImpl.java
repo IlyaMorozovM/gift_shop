@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByLogin(String login) throws ServiceException {
+    public User getByLogin(String login) throws ServiceException {
         userValidator.validateLogin(login);
         try {
-            return userDao.getUserByLogin(login);
+            return userDao.getByLogin(login);
         } catch (NoResultException e) {
             LOGGER.error("Following exception was thrown in getUser(String login): " + e.getMessage());
             throw new ServiceException("Failed to get user by it login: " + login,
@@ -49,10 +49,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(int userId) throws ServiceException {
+    public User getById(int userId) throws ServiceException {
         userValidator.validateId(userId);
         try {
-            User user = userDao.getUserById(userId);
+            User user = userDao.getById(userId);
             if (user == null) {
                 LOGGER.error("Failed to get user by it id: " + userId);
                 throw new ServiceException("Failed to get user by it id: " + userId, ErrorCodeEnum.FAILED_TO_RETRIEVE_USER);
@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsersByPage(UserSearchCriteria searchCriteria, int page, int size,
-                                        SortType sortType, SortBy sortBy) throws ServiceException {
+    public List<User> getAllByPage(UserSearchCriteria searchCriteria, int page, int size,
+                                   SortType sortType, SortBy sortBy) throws ServiceException {
         paginationValidator.validatePagination(page, size);
 
         if (searchCriteria == null) {
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
         userValidator.validateUserSearchCriteria(searchCriteria);
 
         try {
-            return userDao.getAllUsersByPage(searchCriteria, page, size);
+            return userDao.getAllByPage(searchCriteria, page, size);
         } catch (DataAccessException e) {
             LOGGER.error("Following exception was thrown in getAllUsersByPage(): " + e.getMessage());
             throw new ServiceException("Failed to get users", ErrorCodeEnum.FAILED_TO_RETRIEVE_USER);

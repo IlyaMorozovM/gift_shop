@@ -59,12 +59,12 @@ public class UserController {
         paginationConfigurer.configure(page, size, userService.getLastPage(size), sortType, sortBy);
 
         return modelAssembler.toCollectionModel(
-                UserDto.of(userService.getAllUsersByPage(request, page, size, sortType, sortBy)));
+                UserDto.of(userService.getAllByPage(request, page, size, sortType, sortBy)));
     }
 
     @GetMapping("/users/{id}")
     public EntityModel<UserDto> getUser(@PathVariable @Min(1) int id) throws ServiceException {
-        return modelAssembler.toModel(UserDto.of(userService.getUserById(id)));
+        return modelAssembler.toModel(UserDto.of(userService.getById(id)));
     }
 
     @GetMapping("/users/{id}/orders")
@@ -73,6 +73,6 @@ public class UserController {
             @RequestParam int page, @RequestParam int size, @PathVariable int id,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
         return orderModelAssembler.toCollectionModel(
-                OrderDto.of(orderService.getOrdersByUserId(id, requestBody, page, size, sortType, sortBy)));
+                OrderDto.of(orderService.getByUserId(id, requestBody, page, size, sortType, sortBy)));
     }
 }

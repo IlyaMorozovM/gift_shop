@@ -26,7 +26,7 @@ public interface TagService {
      * @throws ServiceException when failed to get {@code Tag}.
      * @return {@code Tag}.
      */
-    Tag getTagByName(String name) throws ServiceException;
+    Tag getByName(String name) throws ServiceException;
 
     /**
      * Retrieves data of {@code Tag} from
@@ -37,7 +37,7 @@ public interface TagService {
      * @throws ServiceException when failed to get {@code Tag}.
      * @return {@code Tag}.
      */
-    Tag getTagById(int tagId) throws ServiceException;
+    Tag getById(int tagId) throws ServiceException;
 
     /**
      * Retrieves {@code Tag} from persistence layer.
@@ -50,8 +50,8 @@ public interface TagService {
      * @throws ServiceException when failed to get {@code Tag}.
      * @return List<Tag> - tags from persistence layer.
      */
-    List<Tag> getAllTagsByPage(TagSearchCriteria searchCriteria, int page, int size,
-                               SortType sortType, SortBy sortBy) throws ServiceException;
+    List<Tag> getAllByPage(TagSearchCriteria searchCriteria, int page, int size,
+                           SortType sortType, SortBy sortBy) throws ServiceException;
 
     /**
      * Retrieves number of pages from persistence layer if every page
@@ -67,7 +67,7 @@ public interface TagService {
      *
      * @return {@link Tag}.
      */
-    Tag getMostFrequentTagFromHighestCostUser() throws ServiceException;
+    Tag getMostFrequentFromHighestCostUser() throws ServiceException;
 
     /**
      * Adds new {@code Tag} to persistence layer.
@@ -76,7 +76,7 @@ public interface TagService {
      * @throws ServiceException when failed to add {@code Tag} to persistence layer.
      * @return id of a {@code Tag} from persistence layer.
      */
-    Tag addTag(Tag tag) throws ServiceException;
+    Tag add(Tag tag) throws ServiceException;
 
     /**
      * Deletes {@code Tag} from persistence layer.
@@ -84,5 +84,5 @@ public interface TagService {
      * @param tagId id of a {@code Tag} which to delete from persistence layer.
      * @throws ServiceException when failed to delete {@code Tag} from persistence layer.
      */
-    void deleteTag(int tagId) throws ServiceException;
+    void delete(int tagId) throws ServiceException;
 }

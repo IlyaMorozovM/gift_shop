@@ -47,17 +47,17 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     }
 
     @Override
-    public GiftCertificate getGiftCertificateByName(String name) throws NoResultException {
+    public GiftCertificate getByName(String name) throws NoResultException {
         return persistenceService.getModelByName(GET_CERTIFICATE_BY_NAME, name);
     }
 
     @Override
-    public GiftCertificate getGiftCertificateById(int certificateId) {
+    public GiftCertificate getById(int certificateId) {
         return persistenceService.getModelById(certificateId);
     }
 
     @Override
-    public List<GiftCertificate> getGiftCertificatesByRequestBody(
+    public List<GiftCertificate> getByRequestBody(
             CertificateSearchCriteria searchCriteria, int page, int size) {
         List<GiftCertificate> giftCertificates = getGiftCertificatesFromQuery(searchCriteria, page, size);
         removeDeletedTags(giftCertificates);
@@ -131,23 +131,23 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     }
 
     @Override
-    public GiftCertificate addGiftCertificate(GiftCertificate giftCertificate) throws PersistenceException {
+    public GiftCertificate add(GiftCertificate giftCertificate) throws PersistenceException {
         giftCertificate.setActive(ACTIVE_CERTIFICATE);
         return persistenceService.add(giftCertificate);
     }
 
     @Override
-    public void deleteGiftCertificate(int certificateId) {
+    public void delete(int certificateId) {
         GiftCertificate giftCertificate = persistenceService.getModelById(certificateId);
         if (giftCertificate == null) {
             throw new NoResultException("Failed to find certificate to delete by id: " + certificateId);
         }
         giftCertificate.setActive(DELETED_CERTIFICATE);
-        updateGiftCertificate(giftCertificate);
+        update(giftCertificate);
     }
 
     @Override
-    public GiftCertificate updateGiftCertificate(GiftCertificate giftCertificate) {
+    public GiftCertificate update(GiftCertificate giftCertificate) {
         giftCertificate.setActive(ACTIVE_CERTIFICATE);
         return persistenceService.update(giftCertificate);
     }

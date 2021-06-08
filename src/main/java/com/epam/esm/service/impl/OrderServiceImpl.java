@@ -25,10 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -57,8 +54,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public List<Order> getOrdersByUserId(int userId, OrderSearchCriteria searchCriteria, int page, int size,
-                                         SortType sortType, SortBy sortBy) throws ServiceException {
+    public List<Order> getByUserId(int userId, OrderSearchCriteria searchCriteria, int page, int size,
+                                   SortType sortType, SortBy sortBy) throws ServiceException {
         paginationValidator.validatePagination(page, size);
 
         if (searchCriteria == null) {
@@ -69,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
         orderValidator.validateOrderSearchCriteria(searchCriteria);
 
         try {
-            return orderDao.getOrdersByUserId(userId, searchCriteria, page, size);
+            return orderDao.getByUserId(userId, searchCriteria, page, size);
         } catch (DataAccessException e) {
             LOGGER.error(String.format("Failed to get order by user id = {%s}", userId));
             throw new ServiceException(String.format("Failed to get order by user id = {%s}", userId),
@@ -78,11 +75,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrderById(int orderId) throws ServiceException {
+    public Order getById(int orderId) throws ServiceException {
         orderValidator.validateId(orderId);
 
         try {
-            Order order = orderDao.getOrderById(orderId);
+            Order order = orderDao.getById(orderId);
             if (order == null) {
                 LOGGER.error(String.format("Failed to get order by user id = {%s}", orderId));
                 throw new ServiceException(String.format("Failed to get order by user id = {%s}", orderId),
@@ -98,8 +95,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAllOrdersByPage(OrderSearchCriteria searchCriteria, int page, int size,
-                                          SortType sortType, SortBy sortBy) throws ServiceException {
+    public List<Order> getAllByPage(OrderSearchCriteria searchCriteria, int page, int size,
+                                    SortType sortType, SortBy sortBy) throws ServiceException {
         paginationValidator.validatePagination(page, size);
 
         if (searchCriteria == null) {
@@ -110,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
         orderValidator.validateOrderSearchCriteria(searchCriteria);
 
         try {
-            return orderDao.getAllOrdersByPage(searchCriteria, page, size);
+            return orderDao.getAllByPage(searchCriteria, page, size);
         } catch (DataAccessException e) {
             LOGGER.error("Failed to get orders by page");
             throw new ServiceException("Failed to get orders by page", ErrorCodeEnum.FAILED_TO_RETRIEVE_ORDER);
@@ -130,17 +127,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public Order addOrder(Order order) throws ServiceException {
+    public Order add(Order order) throws ServiceException {
         orderValidator.validateOrder(order);
 
         order.setCreateDate(LocalDateTime.now());
 
         try {
-            User userOfOrder = userService.getUserById(order.getUser().getId());
+            User userOfOrder = userService.getById(order.getUser().getId());
             order.setUser(userOfOrder);
 
             for (GiftCertificate giftCertificate: order.getGiftCertificateList()) {
-                GiftCertificate giftCertificateOfOrder = giftCertificateService.getGiftCertificateByName(giftCertificate.getName());
+                GiftCertificate giftCertificateOfOrder = giftCertificateService.getByName(giftCertificate.getName());
                 giftCertificate.setId(giftCertificateOfOrder.getId());
                 giftCertificateService.addOrActivateCertificateTags(giftCertificate);
             }
@@ -150,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         try {
-            return orderDao.addOrder(order);
+            return orderDao.add(order);
         } catch (DataAccessException | PersistenceException e) {
             LOGGER.error("Failed to add order");
             throw new ServiceException("Failed to add order", ErrorCodeEnum.FAILED_TO_ADD_ORDER);
@@ -159,10 +156,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public void deleteOrder(int orderId) throws ServiceException {
+    public void delete(int orderId) throws ServiceException {
         orderValidator.validateId(orderId);
         try {
-            orderDao.deleteOrder(orderId);
+            orderDao.delete(orderId);
         } catch (DataAccessException | NoResultException | IllegalArgumentException e) {
             LOGGER.error("Failed to delete order");
             throw new ServiceException("Failed to delete order", ErrorCodeEnum.FAILED_TO_RETRIEVE_ORDER);

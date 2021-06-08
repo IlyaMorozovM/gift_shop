@@ -54,27 +54,27 @@ public class TagController {
         paginationConfigurer.configure(page, size, tagService.getLastPage(size), sortType, sortBy);
 
         return modelAssembler.toCollectionModel(
-                TagDto.of(tagService.getAllTagsByPage(requestBody, page, size, sortType, sortBy)));
+                TagDto.of(tagService.getAllByPage(requestBody, page, size, sortType, sortBy)));
     }
 
     @GetMapping("/{id}")
     public EntityModel<TagDto> getTag(@PathVariable @Min(1) int id) throws ServiceException {
-        return modelAssembler.toModel(TagDto.of(tagService.getTagById(id)));
+        return modelAssembler.toModel(TagDto.of(tagService.getById(id)));
     }
 
     @GetMapping("/tag")
     public EntityModel<TagDto> getMostFrequentTag() throws ServiceException {
-        return modelAssembler.toModel(TagDto.of(tagService.getMostFrequentTagFromHighestCostUser()));
+        return modelAssembler.toModel(TagDto.of(tagService.getMostFrequentFromHighestCostUser()));
     }
 
     @PostMapping
     public ResponseEntity<Object> addTag(@Valid @RequestBody Tag tag) throws ServiceException {
-        return new ResponseEntity<>(modelAssembler.toModel(TagDto.of(tagService.addTag(tag))), HttpStatus.CREATED);
+        return new ResponseEntity<>(modelAssembler.toModel(TagDto.of(tagService.add(tag))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTag(@PathVariable int id) throws ServiceException {
-        tagService.deleteTag(id);
+        tagService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

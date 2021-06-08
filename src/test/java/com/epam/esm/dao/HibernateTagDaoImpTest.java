@@ -31,7 +31,7 @@ class HibernateTagDaoImpTest {
 
         Mockito.when(service.getModelById(given.getId())).thenReturn(given);
 
-        Tag actual = tagDao.getTagById(given.getId());
+        Tag actual = tagDao.getById(given.getId());
         Assertions.assertEquals(given, actual);
     }
 
@@ -52,7 +52,7 @@ class HibernateTagDaoImpTest {
         Mockito.doThrow(new IllegalArgumentException()).when(service).delete(given.getId());
 
         try {
-            tagDao.deleteTagById(given.getId());
+            tagDao.deleteById(given.getId());
         } catch (Exception e) {
             Assertions.assertTrue(true);
         }
@@ -64,7 +64,7 @@ class HibernateTagDaoImpTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        Tag actual = tagDao.addTag(given);
+        Tag actual = tagDao.add(given);
         Assertions.assertEquals(given, actual);
     }
 }

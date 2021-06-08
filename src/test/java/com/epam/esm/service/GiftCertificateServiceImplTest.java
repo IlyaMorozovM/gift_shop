@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,22 +69,22 @@ class GiftCertificateServiceImplTest {
     void whenGetCertificate_thenCorrectlyReturnsItById() throws ServiceException {
         GiftCertificate given = initCertificate();
 
-        Mockito.when(giftCertificateDAO.getGiftCertificateById(given.getId())).thenReturn(given);
+        Mockito.when(giftCertificateDAO.getById(given.getId())).thenReturn(given);
 
-        GiftCertificate actual = giftCertificateService.getGiftCertificateById(given.getId());
+        GiftCertificate actual = giftCertificateService.getById(given.getId());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(giftCertificateDAO).getGiftCertificateById(given.getId());
+        Mockito.verify(giftCertificateDAO).getById(given.getId());
     }
 
     @Test
     void whenGetCertificate_thenCorrectlyReturnsItByName() throws ServiceException {
         GiftCertificate given = initCertificate();
 
-        Mockito.when(giftCertificateDAO.getGiftCertificateByName(given.getName())).thenReturn(given);
+        Mockito.when(giftCertificateDAO.getByName(given.getName())).thenReturn(given);
 
-        GiftCertificate actual = giftCertificateService.getGiftCertificateByName(given.getName());
+        GiftCertificate actual = giftCertificateService.getByName(given.getName());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(giftCertificateDAO).getGiftCertificateByName(given.getName());
+        Mockito.verify(giftCertificateDAO).getByName(given.getName());
     }
 
     @Test
@@ -93,13 +92,13 @@ class GiftCertificateServiceImplTest {
         List<GiftCertificate> given = initCertificates();
         CertificateSearchCriteria givenSearchCriteria = CertificateSearchCriteria.getDefaultCertificateRequestBody();
 
-        Mockito.when(giftCertificateDAO.getGiftCertificatesByRequestBody(givenSearchCriteria, size, page))
+        Mockito.when(giftCertificateDAO.getByRequestBody(givenSearchCriteria, size, page))
                 .thenReturn(given);
 
-        List<GiftCertificate> actual = giftCertificateService.getGiftCertificatesByPage(givenSearchCriteria, size, page,
+        List<GiftCertificate> actual = giftCertificateService.getByPage(givenSearchCriteria, size, page,
                 givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(giftCertificateDAO).getGiftCertificatesByRequestBody(givenSearchCriteria, size, page);
+        Mockito.verify(giftCertificateDAO).getByRequestBody(givenSearchCriteria, size, page);
     }
 
     @Test
@@ -107,7 +106,7 @@ class GiftCertificateServiceImplTest {
         GiftCertificate giftCertificate = new GiftCertificate();
 
         try {
-            giftCertificateService.addGiftCertificate(giftCertificate);
+            giftCertificateService.add(giftCertificate);
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to validate: certificate name is empty", e.getMessage());
         }
@@ -118,7 +117,7 @@ class GiftCertificateServiceImplTest {
         GiftCertificate givenCertificate = initCertificate();
 
         try {
-            giftCertificateService.deleteGiftCertificate(givenCertificate.getId());
+            giftCertificateService.delete(givenCertificate.getId());
         } catch (ServiceException e) {
             Assertions.assertEquals(
                     "Failed to get certificate by it id: " + givenCertificate.getId(), e.getMessage());
@@ -132,13 +131,13 @@ class GiftCertificateServiceImplTest {
         givenSearchCriteria.setSortBy(SortBy.CREATE_DATE);
         List<GiftCertificate> givenCertificates = initCertificates();
 
-        Mockito.when(giftCertificateDAO.getGiftCertificatesByRequestBody(givenSearchCriteria, page, size))
+        Mockito.when(giftCertificateDAO.getByRequestBody(givenSearchCriteria, page, size))
                 .thenReturn(givenCertificates);
 
-        List<GiftCertificate> actual = giftCertificateService.getGiftCertificatesByPage(
+        List<GiftCertificate> actual = giftCertificateService.getByPage(
                 givenSearchCriteria, page, size, givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy());
         Assertions.assertEquals(givenCertificates, actual);
-        Mockito.verify(giftCertificateDAO).getGiftCertificatesByRequestBody(givenSearchCriteria, page, size);
+        Mockito.verify(giftCertificateDAO).getByRequestBody(givenSearchCriteria, page, size);
     }
 
     @Test
@@ -148,12 +147,12 @@ class GiftCertificateServiceImplTest {
         givenSearchCriteria.setSortBy(SortBy.CREATE_DATE);
         List<GiftCertificate> givenCertificates = initCertificates();
 
-        Mockito.when(giftCertificateDAO.getGiftCertificatesByRequestBody(givenSearchCriteria, page, size))
+        Mockito.when(giftCertificateDAO.getByRequestBody(givenSearchCriteria, page, size))
                 .thenReturn(givenCertificates);
 
-        List<GiftCertificate> actual = giftCertificateService.getGiftCertificatesByPage(
+        List<GiftCertificate> actual = giftCertificateService.getByPage(
                 givenSearchCriteria, page, size, givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy());
         Assertions.assertEquals(givenCertificates, actual);
-        Mockito.verify(giftCertificateDAO).getGiftCertificatesByRequestBody(givenSearchCriteria, page, size);
+        Mockito.verify(giftCertificateDAO).getByRequestBody(givenSearchCriteria, page, size);
     }
 }

@@ -47,10 +47,10 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public GiftCertificate getGiftCertificateByName(String name) throws ServiceException {
+    public GiftCertificate getByName(String name) throws ServiceException {
         certificateValidator.validateName(name);
         try {
-            return giftCertificateDao.getGiftCertificateByName(name);
+            return giftCertificateDao.getByName(name);
         } catch (DataAccessException e) {
             LOGGER.error("Following exception was thrown in getGiftCertificate(String name): " + e.getMessage());
             throw new ServiceException("Failed to get certificate by it name: " + name,
@@ -59,10 +59,10 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public GiftCertificate getGiftCertificateById(int certificateId) throws ServiceException {
+    public GiftCertificate getById(int certificateId) throws ServiceException {
         certificateValidator.validateId(certificateId);
         try {
-            GiftCertificate giftCertificate = giftCertificateDao.getGiftCertificateById(certificateId);
+            GiftCertificate giftCertificate = giftCertificateDao.getById(certificateId);
             if (giftCertificate == null) {
                 LOGGER.error("Failed to get certificate by it id: " + certificateId);
                 throw new ServiceException("Failed to get certificate by it id: " + certificateId,
@@ -78,8 +78,8 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public List<GiftCertificate> getGiftCertificatesByPage(CertificateSearchCriteria searchCriteria, int page, int size,
-                                                           SortType sortType, SortBy sortBy) throws ServiceException {
+    public List<GiftCertificate> getByPage(CertificateSearchCriteria searchCriteria, int page, int size,
+                                           SortType sortType, SortBy sortBy) throws ServiceException {
         paginationValidator.validatePagination(page, size);
 
         if (searchCriteria == null) {
@@ -89,7 +89,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         searchCriteria.setSortBy(sortBy);
         certificateValidator.validateCertificateSearchCriteria(searchCriteria);
 
-        return giftCertificateDao.getGiftCertificatesByRequestBody(searchCriteria, page, size);
+        return giftCertificateDao.getByRequestBody(searchCriteria, page, size);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public GiftCertificate addGiftCertificate(GiftCertificate giftCertificate) throws ServiceException {
+    public GiftCertificate add(GiftCertificate giftCertificate) throws ServiceException {
         certificateValidator.validateCertificate(giftCertificate);
         try {
 
@@ -115,7 +115,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
             addOrActivateCertificateTags(giftCertificate);
 
-            return giftCertificateDao.addGiftCertificate(giftCertificate);
+            return giftCertificateDao.add(giftCertificate);
         } catch (DataAccessException | PersistenceException e) {
             LOGGER.error("Following exception was thrown in addGiftCertificate(): " + e.getMessage());
             throw new ServiceException("Failed to add certificate: certificate already exist",
@@ -128,26 +128,26 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         Set<Tag> tags = giftCertificate.getTags();
         for (Tag tag: tags){
             try {
-                Tag savedTag = tagService.getTagByName(tag.getName());
+                Tag savedTag = tagService.getByName(tag.getName());
                 tag.setActive(true);
                 tag.setId(savedTag.getId());
             } catch (NoResultException | ServiceException e){
-                tagService.addTag(tag);
+                tagService.add(tag);
             }
         }
     }
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public void deleteGiftCertificate(int certificateId) throws ServiceException {
-        GiftCertificate giftCertificate = getGiftCertificateById(certificateId);
+    public void delete(int certificateId) throws ServiceException {
+        GiftCertificate giftCertificate = getById(certificateId);
         if (giftCertificate == null) {
             LOGGER.error("Failed to delete certificate: certificate not found");
             throw new ServiceException("Failed to delete certificate: certificate not found",
                     ErrorCodeEnum.FAILED_TO_DELETE_CERTIFICATE);
         }
         try {
-            giftCertificateDao.deleteGiftCertificate(giftCertificate.getId());
+            giftCertificateDao.delete(giftCertificate.getId());
         } catch (DataAccessException | NoResultException | IllegalArgumentException e) {
             LOGGER.error("Following exception was thrown in deleteGiftCertificate(): " + e.getMessage());
             throw new ServiceException("Failed to delete certificate", ErrorCodeEnum.FAILED_TO_DELETE_CERTIFICATE);
@@ -156,18 +156,18 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public GiftCertificate updateGiftCertificate(GiftCertificate giftCertificate, int id) throws ServiceException {
+    public GiftCertificate update(GiftCertificate giftCertificate, int id) throws ServiceException {
         giftCertificate.setId(id);
         certificateValidator.validateCertificate(giftCertificate);
         try {
-            if (giftCertificateDao.getGiftCertificateById(id) != null) {
-                GiftCertificate giftCertificateFromDB = giftCertificateDao.getGiftCertificateById(id);
+            if (giftCertificateDao.getById(id) != null) {
+                GiftCertificate giftCertificateFromDB = giftCertificateDao.getById(id);
                 giftCertificate.setLastUpdateDate(LocalDateTime.now());
                 giftCertificate.setCreateDate(giftCertificateFromDB.getCreateDate());
 
                 addOrActivateCertificateTags(giftCertificate);
 
-                giftCertificate = giftCertificateDao.updateGiftCertificate(giftCertificate);
+                giftCertificate = giftCertificateDao.update(giftCertificate);
                 if (giftCertificate == null) {
                     LOGGER.error("Failed to update certificate");
                     throw new ServiceException("Failed to update certificate",

@@ -26,7 +26,7 @@ public interface OrderDao {
      * @param size page size of {@code Order} to return from data source.
      * @return {@code Order}s.
      */
-    List<Order> getOrdersByUserId(int userId, OrderSearchCriteria searchCriteria, int page, int size);
+    List<Order> getByUserId(int userId, OrderSearchCriteria searchCriteria, int page, int size);
 
     /**
      * Retrieves data of {@code Order} from
@@ -36,7 +36,7 @@ public interface OrderDao {
      * @param orderId order id.
      * @return {@code Order}.
      */
-    Order getOrderById(int orderId);
+    Order getById(int orderId);
 
     /**
      * Retrieves certain number of {@code Order} from data source.
@@ -46,7 +46,7 @@ public interface OrderDao {
      * @param size page size of {@code Order} to return from data source.
      * @return List<Order> - certain number of existing orders in data source.
      */
-    List<Order> getAllOrdersByPage(OrderSearchCriteria searchCriteria, int page, int size);
+    List<Order> getAllByPage(OrderSearchCriteria searchCriteria, int page, int size);
 
     /**
      * Retrieves number of a last page from data source if every page
@@ -63,7 +63,7 @@ public interface OrderDao {
      * @param order {@code Order} which to be added to data source.
      * @return added {@code User} from data source.
      */
-    Order addOrder(Order order);
+    Order add(Order order);
 
     /**
      * Deletes {@code Order} from data source by it id
@@ -71,5 +71,5 @@ public interface OrderDao {
      *
      * @param orderId id of a {@code Order} which to delete from data source.
      */
-    void deleteOrder(int orderId);
+    void delete(int orderId);
 }

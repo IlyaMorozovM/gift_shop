@@ -30,8 +30,8 @@ public interface OrderService {
      * @throws ServiceException when failed to get {@code Order}.
      * @return List<Order> - orders from persistence layer.
      */
-    List<Order> getOrdersByUserId(int userId, OrderSearchCriteria searchCriteria, int page, int size,
-                                  SortType sortType, SortBy sortBy) throws ServiceException;
+    List<Order> getByUserId(int userId, OrderSearchCriteria searchCriteria, int page, int size,
+                            SortType sortType, SortBy sortBy) throws ServiceException;
 
     /**
      * Retrieves data of {@code Order} from
@@ -42,7 +42,7 @@ public interface OrderService {
      * @throws ServiceException when failed to get {@code Order}.
      * @return {@code Order}.
      */
-    Order getOrderById(int orderId) throws ServiceException;
+    Order getById(int orderId) throws ServiceException;
 
     /**
      * Retrieves {@code Order} from persistence layer.
@@ -55,8 +55,8 @@ public interface OrderService {
      * @throws ServiceException when failed to get {@code Order}.
      * @return List<Order> - orders from persistence layer.
      */
-    List<Order> getAllOrdersByPage(OrderSearchCriteria searchCriteria, int page, int size,
-                                   SortType sortType, SortBy sortBy) throws ServiceException;
+    List<Order> getAllByPage(OrderSearchCriteria searchCriteria, int page, int size,
+                             SortType sortType, SortBy sortBy) throws ServiceException;
 
     /**
      * Retrieves number of a last page from persistence layer if every page
@@ -74,7 +74,7 @@ public interface OrderService {
      * @throws ServiceException when failed to add {@code Order}.
      * @return added {@code Order} from persistence layer.
      */
-    Order addOrder(Order order) throws ServiceException;
+    Order add(Order order) throws ServiceException;
 
     /**
      * Deletes {@code Order} from persistence layer.
@@ -82,5 +82,5 @@ public interface OrderService {
      * @param orderId id of {@code Order} which to delete from persistence layer.
      * @throws ServiceException when failed to delete {@code Order}.
      */
-    void deleteOrder(int orderId) throws ServiceException;
+    void delete(int orderId) throws ServiceException;
 }

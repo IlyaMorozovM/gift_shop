@@ -55,22 +55,22 @@ class UserServiceImplTest {
     void whenGetUser_thenCorrectlyReturnsItById() throws ServiceException {
         User given = initUser();
 
-        Mockito.when(userDao.getUserById(given.getId())).thenReturn(given);
+        Mockito.when(userDao.getById(given.getId())).thenReturn(given);
 
-        User actual = userService.getUserById(given.getId());
+        User actual = userService.getById(given.getId());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(userDao).getUserById(given.getId());
+        Mockito.verify(userDao).getById(given.getId());
     }
 
     @Test
     void whenGetUser_thenCorrectlyReturnsItByName() throws ServiceException {
         User given = initUser();
 
-        Mockito.when(userDao.getUserByLogin(given.getLogin())).thenReturn(given);
+        Mockito.when(userDao.getByLogin(given.getLogin())).thenReturn(given);
 
-        User actual = userService.getUserByLogin(given.getLogin());
+        User actual = userService.getByLogin(given.getLogin());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(userDao).getUserByLogin(given.getLogin());
+        Mockito.verify(userDao).getByLogin(given.getLogin());
     }
 
     @Test
@@ -81,12 +81,12 @@ class UserServiceImplTest {
         }
         UserSearchCriteria givenSearchCriteria = UserSearchCriteria.getDefaultUserRequestBody();
 
-        Mockito.when(userDao.getAllUsersByPage(givenSearchCriteria, size, page))
+        Mockito.when(userDao.getAllByPage(givenSearchCriteria, size, page))
                 .thenReturn(given);
 
-        List<User> actual = userService.getAllUsersByPage(givenSearchCriteria, size, page,
+        List<User> actual = userService.getAllByPage(givenSearchCriteria, size, page,
                 givenSearchCriteria.getSortType(), givenSearchCriteria.getSortBy());
         Assertions.assertEquals(given, actual);
-        Mockito.verify(userDao).getAllUsersByPage(givenSearchCriteria, size, page);
+        Mockito.verify(userDao).getAllByPage(givenSearchCriteria, size, page);
     }
 }

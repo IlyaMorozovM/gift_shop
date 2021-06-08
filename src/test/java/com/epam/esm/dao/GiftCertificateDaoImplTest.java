@@ -10,10 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 class GiftCertificateDaoImplTest {
@@ -58,7 +55,7 @@ class GiftCertificateDaoImplTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        GiftCertificate actual = giftCertificateDAO.addGiftCertificate(given);
+        GiftCertificate actual = giftCertificateDAO.add(given);
         Assertions.assertEquals(given, actual);
     }
 
@@ -69,7 +66,7 @@ class GiftCertificateDaoImplTest {
         Mockito.doThrow(new IllegalArgumentException()).when(service).delete(given.getId());
 
         try {
-            giftCertificateDAO.deleteGiftCertificate(given.getId());
+            giftCertificateDAO.delete(given.getId());
         } catch (Exception e) {
             Assertions.assertTrue(true);
         }
@@ -91,7 +88,7 @@ class GiftCertificateDaoImplTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        GiftCertificate actual = giftCertificateDAO.addGiftCertificate(given);
+        GiftCertificate actual = giftCertificateDAO.add(given);
         Assertions.assertEquals(given, actual);
     }
 
@@ -101,7 +98,7 @@ class GiftCertificateDaoImplTest {
 
         Mockito.when(service.update(given)).thenReturn(given);
 
-        GiftCertificate actual = giftCertificateDAO.updateGiftCertificate(given);
+        GiftCertificate actual = giftCertificateDAO.update(given);
         Assertions.assertEquals(given, actual);
     }
 }

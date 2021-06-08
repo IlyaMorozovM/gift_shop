@@ -54,24 +54,24 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public Tag getTagByName(String name) throws NoResultException {
+    public Tag getByName(String name) throws NoResultException {
         return persistenceService.getModelByName(GET_TAG_BY_NAME, name);
     }
 
     @Override
-    public Tag getTagById(int tagId) {
+    public Tag getById(int tagId) {
         return persistenceService.getModelById(tagId);
     }
 
     @Override
-    public Tag getMostFrequentTagFromHighestCostUser() {
+    public Tag getMostFrequentFromHighestCostUser() {
         Query query = entityManager.createNativeQuery(
                 GET_MOST_FREQUENT_TAG, Tag.class);
         return (Tag) query.getSingleResult();
     }
 
     @Override
-    public List<Tag> getAllTagsByPage(TagSearchCriteria searchCriteria, int page, int size) {
+    public List<Tag> getAllByPage(TagSearchCriteria searchCriteria, int page, int size) {
         return persistenceService.getAllModelsByPage(
                 GET_ALL_TAGS, page, size, searchCriteria.getSortType(), searchCriteria.getSortBy());
     }
@@ -82,13 +82,13 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public Tag addTag(Tag tag) {
+    public Tag add(Tag tag) {
         tag.setActive(ACTIVE_TAG);
         return persistenceService.add(tag);
     }
 
     @Override
-    public void deleteTagById(int tagId) {
+    public void deleteById(int tagId) {
         Tag tag = persistenceService.getModelById(tagId);
         if (tag == null) {
             throw new NoResultException("Failed to find tag to delete by id: " + tagId);

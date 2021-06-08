@@ -49,7 +49,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> getOrdersByUserId(
+    public List<Order> getByUserId(
             int userId, OrderSearchCriteria searchCriteria, int page, int size) throws NoResultException {
         List<Order> orders = getNotAuditedOrdersByUserId(userId, searchCriteria, page, size);
         List<GiftCertificate> giftCertificateList = getFirstVersionOfOrders(orders);
@@ -88,12 +88,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order getOrderById(int orderId) {
+    public Order getById(int orderId) {
         return persistenceService.getModelById(orderId);
     }
 
     @Override
-    public List<Order> getAllOrdersByPage(OrderSearchCriteria searchCriteria, int page, int size) {
+    public List<Order> getAllByPage(OrderSearchCriteria searchCriteria, int page, int size) {
         return persistenceService.getAllModelsByPage(
                 GET_ALL_ORDERS, page, size, searchCriteria.getSortType(), searchCriteria.getSortBy());
     }
@@ -104,13 +104,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order addOrder(Order order) {
+    public Order add(Order order) {
         order.setActive(ACTIVE_ORDER);
         return persistenceService.add(order);
     }
 
     @Override
-    public void deleteOrder(int orderId) {
+    public void delete(int orderId) {
         Order order = persistenceService.getModelById(orderId);
         if (order == null) {
             throw new NoResultException("Failed to find order to delete by id: " + orderId);

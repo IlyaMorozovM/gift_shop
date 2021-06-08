@@ -54,24 +54,24 @@ public class CertificateController {
         paginationConfigurer.configure(page, size, giftCertificateService.getLastPage(size), sortType, sortBy);
 
         return modelAssembler.toCollectionModel(GiftCertificateDto.of(
-                giftCertificateService.getGiftCertificatesByPage(request, page, size, sortType, sortBy)));
+                giftCertificateService.getByPage(request, page, size, sortType, sortBy)));
     }
 
     @GetMapping("/certificates/{id}")
     public EntityModel<GiftCertificateDto> getGiftCertificate(@PathVariable @Min(1) int id) throws ServiceException {
-        return modelAssembler.toModel(GiftCertificateDto.of(giftCertificateService.getGiftCertificateById(id)));
+        return modelAssembler.toModel(GiftCertificateDto.of(giftCertificateService.getById(id)));
     }
 
     @PostMapping("/certificates")
     public ResponseEntity<Object> addGiftCertificate(@Valid @RequestBody GiftCertificate giftCertificate)
             throws ServiceException {
         return new ResponseEntity<>(modelAssembler.toModel(
-                GiftCertificateDto.of(giftCertificateService.addGiftCertificate(giftCertificate))), HttpStatus.CREATED);
+                GiftCertificateDto.of(giftCertificateService.add(giftCertificate))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/certificates/{id}")
     public ResponseEntity<Object> deleteGiftCertificate(@PathVariable int id) throws ServiceException {
-        giftCertificateService.deleteGiftCertificate(id);
+        giftCertificateService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -79,6 +79,6 @@ public class CertificateController {
     public EntityModel<GiftCertificateDto> updateGiftCertificate(
             @RequestBody GiftCertificate giftCertificate, @PathVariable int id) throws ServiceException {
         return modelAssembler.toModel(
-                GiftCertificateDto.of(giftCertificateService.updateGiftCertificate(giftCertificate, id)));
+                GiftCertificateDto.of(giftCertificateService.update(giftCertificate, id)));
     }
 }

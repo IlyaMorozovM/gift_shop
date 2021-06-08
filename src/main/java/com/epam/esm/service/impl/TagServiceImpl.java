@@ -38,10 +38,10 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag getTagByName(String name) throws ServiceException {
+    public Tag getByName(String name) throws ServiceException {
         tagValidator.validateName(name);
         try {
-            return tagDao.getTagByName(name);
+            return tagDao.getByName(name);
         } catch (NoResultException ex) {
             throw new ServiceException(String.format("Failed to get tag with name = {%s}", name),
                     ErrorCodeEnum.FAILED_TO_RETRIEVE_TAG);
@@ -49,9 +49,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag getTagById(int tagId) throws ServiceException {
+    public Tag getById(int tagId) throws ServiceException {
         try {
-            Tag tag = tagDao.getTagById(tagId);
+            Tag tag = tagDao.getById(tagId);
             if (tag == null) {
                 LOGGER.error("Failed to get tag by it id: " + tagId);
                 throw new ServiceException("Failed to get tag by it id: " + tagId,
@@ -67,8 +67,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> getAllTagsByPage(TagSearchCriteria searchCriteria, int page, int size,
-                                      SortType sortType, SortBy sortBy) throws ServiceException {
+    public List<Tag> getAllByPage(TagSearchCriteria searchCriteria, int page, int size,
+                                  SortType sortType, SortBy sortBy) throws ServiceException {
         paginationValidator.validatePagination(page, size);
 
         if (searchCriteria == null) {
@@ -79,7 +79,7 @@ public class TagServiceImpl implements TagService {
         tagValidator.validateTagSearchCriteria(searchCriteria);
 
         try {
-            return tagDao.getAllTagsByPage(searchCriteria, page, size);
+            return tagDao.getAllByPage(searchCriteria, page, size);
         } catch (DataAccessException e) {
             LOGGER.error("Following exception was thrown in getAllTagsByPage(): " + e.getMessage());
             throw new ServiceException("Failed to get tags", ErrorCodeEnum.FAILED_TO_RETRIEVE_TAG);
@@ -98,9 +98,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag getMostFrequentTagFromHighestCostUser() throws ServiceException {
+    public Tag getMostFrequentFromHighestCostUser() throws ServiceException {
         try {
-            return tagDao.getMostFrequentTagFromHighestCostUser();
+            return tagDao.getMostFrequentFromHighestCostUser();
         } catch (DataAccessException e) {
             LOGGER.error("Failed to get most frequent tag");
             throw new ServiceException("Failed to get most frequent tag",
@@ -110,10 +110,10 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public Tag addTag(Tag tag) throws ServiceException {
+    public Tag add(Tag tag) throws ServiceException {
         tagValidator.validateTag(tag);
         try {
-            return tagDao.addTag(tag);
+            return tagDao.add(tag);
         } catch (PersistenceException | DataAccessException e) {
             LOGGER.error("Failed to add tag");
             throw new ServiceException("Failed to add tag", ErrorCodeEnum.FAILED_TO_ADD_TAG);
@@ -122,9 +122,9 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public void deleteTag(int tagId) throws ServiceException {
+    public void delete(int tagId) throws ServiceException {
         try {
-            tagDao.deleteTagById(tagId);
+            tagDao.deleteById(tagId);
         } catch (DataAccessException | NoResultException | IllegalArgumentException e) {
             LOGGER.error("Following exception was thrown in deleteTag(): " + e.getMessage());
             throw new ServiceException("Failed to delete tag by it id: " + tagId,

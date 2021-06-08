@@ -42,7 +42,7 @@ class HibernateUserDaoTest {
 
         Mockito.when(service.getModelById(given.getId())).thenReturn(given);
 
-        User actual = userDao.getUserById(given.getId());
+        User actual = userDao.getById(given.getId());
         Assertions.assertEquals(given, actual);
     }
 
@@ -52,7 +52,7 @@ class HibernateUserDaoTest {
 
         Mockito.when(service.getModelByName(GET_USER_BY_NAME, given.getLogin())).thenReturn(given);
 
-        User actual = userDao.getUserByLogin(given.getLogin());
+        User actual = userDao.getByLogin(given.getLogin());
         Assertions.assertEquals(given, actual);
     }
 
@@ -73,7 +73,7 @@ class HibernateUserDaoTest {
         Mockito.doThrow(new IllegalArgumentException()).when(service).delete(given.getId());
 
         try {
-            userDao.getUserById(given.getId());
+            userDao.getById(given.getId());
         } catch (NoResultException e) {
             Assertions.assertTrue(true);
         }

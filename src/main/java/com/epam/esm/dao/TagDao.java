@@ -22,7 +22,7 @@ public interface TagDao {
      * @param name tag name.
      * @return {@code Tag}.
      */
-    Tag getTagByName(String name);
+    Tag getByName(String name);
 
     /**
      * Retrieves data of {@code Tag} from
@@ -32,7 +32,7 @@ public interface TagDao {
      * @param tagId tag id.
      * @return {@code Tag}.
      */
-    Tag getTagById(int tagId);
+    Tag getById(int tagId);
 
     /**
      * Retrieves certain number of {@code Tag} from data source
@@ -43,7 +43,7 @@ public interface TagDao {
      * @param size page size of {@code Tag} to return from data source.
      * @return List<Tag> - certain number of tags in data source.
      */
-    List<Tag> getAllTagsByPage(TagSearchCriteria searchCriteria, int page, int size);
+    List<Tag> getAllByPage(TagSearchCriteria searchCriteria, int page, int size);
 
     /**
      * Retrieves number of a last page from data source if every page
@@ -59,7 +59,7 @@ public interface TagDao {
      *
      * @return {@link Tag}.
      */
-    Tag getMostFrequentTagFromHighestCostUser();
+    Tag getMostFrequentFromHighestCostUser();
 
     /**
      * Adds new {@code Tag} to data source.
@@ -67,7 +67,7 @@ public interface TagDao {
      * @param tag {@code Tag} which to be added to data source.
      * @return added {@code Tag} from data source.
      */
-    Tag addTag(Tag tag);
+    Tag add(Tag tag);
 
     /**
      * Deletes {@code Tag} from data source by it id
@@ -75,5 +75,5 @@ public interface TagDao {
      *
      * @param tagId id of a {@code Tag} which to delete from data source.
      */
-    void deleteTagById(int tagId);
+    void deleteById(int tagId);
 }
