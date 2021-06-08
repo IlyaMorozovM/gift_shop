@@ -37,7 +37,7 @@ public class GiftCertificate implements BaseModel {
     @Column(name = "Price")
     private double price;
 
-    @Column(name = "CreateDate", updatable=false)
+    @Column(name = "CreateDate")
     private LocalDateTime createDate;
 
     @Column(name = "LastUpdateDate")
