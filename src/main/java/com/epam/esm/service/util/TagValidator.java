@@ -18,7 +18,7 @@ public interface TagValidator {
      * @param tag {@code Tag} to be validated.
      * @throws ServiceException if {@code Tag} is incorrect.
      */
-    void validateTag(Tag tag) throws ServiceException;
+    void validate(Tag tag) throws ServiceException;
 
     /**
      * Validates name of {@code Tag}.

@@ -18,7 +18,7 @@ public interface UserValidator {
      * @param user {@code User} to be validated.
      * @throws ServiceException if {@code User} is incorrect.
      */
-    void validateUser(User user) throws ServiceException;
+    void validate(User user) throws ServiceException;
 
     /**
      * Validates id of {@code User}.

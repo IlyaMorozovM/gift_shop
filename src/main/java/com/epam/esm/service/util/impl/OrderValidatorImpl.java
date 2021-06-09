@@ -15,7 +15,7 @@ import java.util.Set;
 public class OrderValidatorImpl implements OrderValidator {
 
     @Override
-    public void validateOrder(Order order) throws ServiceException {
+    public void validate(Order order) throws ServiceException {
         if (order == null) {
             throw new ServiceException("Failed to validate: order is empty",
                     ErrorCodeEnum.ORDER_VALIDATION_ERROR);

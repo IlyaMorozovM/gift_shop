@@ -111,7 +111,7 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional(rollbackFor = ServiceException.class)
     public Tag add(Tag tag) throws ServiceException {
-        tagValidator.validateTag(tag);
+        tagValidator.validate(tag);
         try {
             return tagDao.add(tag);
         } catch (PersistenceException | DataAccessException e) {

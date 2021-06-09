@@ -18,7 +18,7 @@ public interface CertificateValidator {
      * @param giftCertificate {@code GiftCertificate} to be validated.
      * @throws ServiceException if {@code GiftCertificate} is incorrect.
      */
-    void validateCertificate(GiftCertificate giftCertificate) throws ServiceException;
+    void validate(GiftCertificate giftCertificate) throws ServiceException;
 
     /**
      * Validates {@code GiftCertificate} id.

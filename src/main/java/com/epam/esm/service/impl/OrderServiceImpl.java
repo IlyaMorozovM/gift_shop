@@ -128,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(rollbackFor = ServiceException.class)
     public Order add(Order order) throws ServiceException {
-        orderValidator.validateOrder(order);
+        orderValidator.validate(order);
 
         order.setCreateDate(LocalDateTime.now());
 

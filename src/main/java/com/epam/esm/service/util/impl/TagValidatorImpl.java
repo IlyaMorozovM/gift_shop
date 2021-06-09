@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class TagValidatorImpl implements TagValidator {
 
     @Override
-    public void validateTag(Tag tag) throws ServiceException {
+    public void validate(Tag tag) throws ServiceException {
         if (tag == null) {
             throw new ServiceException("Failed to validate: tag is empty", ErrorCodeEnum.TAG_VALIDATION_ERROR);
         }

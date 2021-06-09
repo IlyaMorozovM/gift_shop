@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class UserValidatorImpl implements UserValidator {
 
     @Override
-    public void validateUser(User user) throws ServiceException {
+    public void validate(User user) throws ServiceException {
         if (user == null) {
             throw new ServiceException("Failed to validate: user is empty",
                     ErrorCodeEnum.USER_VALIDATION_ERROR);

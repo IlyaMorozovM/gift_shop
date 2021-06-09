@@ -18,7 +18,7 @@ public interface OrderValidator {
      * @param order {@code Order} to be validated.
      * @throws ServiceException if {@code Order} is incorrect.
      */
-    void validateOrder(Order order) throws ServiceException;
+    void validate(Order order) throws ServiceException;
 
     /**
      * Validates id of {@code Order}.

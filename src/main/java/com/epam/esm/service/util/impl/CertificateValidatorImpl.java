@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class CertificateValidatorImpl implements CertificateValidator {
 
     @Override
-    public void validateCertificate(GiftCertificate giftCertificate) throws ServiceException {
+    public void validate(GiftCertificate giftCertificate) throws ServiceException {
         if (giftCertificate == null) {
             throw new ServiceException("Failed to validate: certificate is empty",
                     ErrorCodeEnum.CERTIFICATE_VALIDATION_ERROR);

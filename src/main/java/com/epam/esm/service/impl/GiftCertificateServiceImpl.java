@@ -106,7 +106,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     @Transactional(rollbackFor = ServiceException.class)
     public GiftCertificate add(GiftCertificate giftCertificate) throws ServiceException {
-        certificateValidator.validateCertificate(giftCertificate);
+        certificateValidator.validate(giftCertificate);
         try {
 
             LocalDateTime createdDate = LocalDateTime.now();
@@ -158,7 +158,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Transactional(rollbackFor = ServiceException.class)
     public GiftCertificate update(GiftCertificate giftCertificate, int id) throws ServiceException {
         giftCertificate.setId(id);
-        certificateValidator.validateCertificate(giftCertificate);
+        certificateValidator.validate(giftCertificate);
         try {
             if (giftCertificateDao.getById(id) != null) {
                 GiftCertificate giftCertificateFromDB = giftCertificateDao.getById(id);
