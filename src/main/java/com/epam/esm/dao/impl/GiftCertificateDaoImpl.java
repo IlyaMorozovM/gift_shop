@@ -131,7 +131,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     }
 
     @Override
-    public GiftCertificate add(GiftCertificate giftCertificate) throws PersistenceException {
+    public GiftCertificate create(GiftCertificate giftCertificate) throws PersistenceException {
         giftCertificate.setActive(ACTIVE_CERTIFICATE);
         return persistenceService.add(giftCertificate);
     }

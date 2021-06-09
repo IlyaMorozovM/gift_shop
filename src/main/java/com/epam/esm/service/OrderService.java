@@ -74,7 +74,7 @@ public interface OrderService {
      * @throws ServiceException when failed to add {@code Order}.
      * @return added {@code Order} from persistence layer.
      */
-    Order add(Order order) throws ServiceException;
+    Order create(Order order) throws ServiceException;
 
     /**
      * Deletes {@code Order} from persistence layer.

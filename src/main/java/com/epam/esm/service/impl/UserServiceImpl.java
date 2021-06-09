@@ -54,14 +54,14 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userDao.getById(userId);
             if (user == null) {
-                LOGGER.error("Failed to get user by it id: " + userId);
-                throw new ServiceException("Failed to get user by it id: " + userId, ErrorCodeEnum.FAILED_TO_RETRIEVE_USER);
+                LOGGER.error("Failed to get user by id = " + userId);
+                throw new ServiceException("Failed to get user by id = " + userId, ErrorCodeEnum.FAILED_TO_RETRIEVE_USER);
             }
 
             return user;
         } catch (DataAccessException e) {
             LOGGER.error("Following exception was thrown in getUser(int id): " + e.getMessage());
-            throw new ServiceException("Failed to get user by it id: " + userId, ErrorCodeEnum.FAILED_TO_RETRIEVE_USER);
+            throw new ServiceException("Failed to get user by id = " + userId, ErrorCodeEnum.FAILED_TO_RETRIEVE_USER);
         }
     }
 

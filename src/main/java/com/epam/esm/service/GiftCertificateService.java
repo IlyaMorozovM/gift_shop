@@ -69,7 +69,7 @@ public interface GiftCertificateService {
      * @throws ServiceException when failed to add {@code GiftCertificate} to persistence layer.
      * @return id of a {@code GiftCertificate} from persistence layer.
      */
-    GiftCertificate add(GiftCertificate giftCertificate) throws ServiceException;
+    GiftCertificate create(GiftCertificate giftCertificate) throws ServiceException;
 
     /**
      * Add tags of certificate if not exist or activate it, is exist.

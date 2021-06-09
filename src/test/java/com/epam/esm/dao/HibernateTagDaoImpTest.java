@@ -64,7 +64,7 @@ class HibernateTagDaoImpTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        Tag actual = tagDao.add(given);
+        Tag actual = tagDao.create(given);
         Assertions.assertEquals(given, actual);
     }
 }

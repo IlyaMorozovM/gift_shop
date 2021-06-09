@@ -64,7 +64,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Object> addOrder(@Valid @RequestBody Order order) throws ServiceException {
-        return new ResponseEntity<>(modelAssembler.toModel(OrderDto.of(orderService.add(order))), HttpStatus.CREATED);
+        return new ResponseEntity<>(modelAssembler.toModel(OrderDto.of(orderService.create(order))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

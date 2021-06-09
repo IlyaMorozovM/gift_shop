@@ -92,7 +92,7 @@ class OrderDaoImplTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        Order actual = orderDao.add(given);
+        Order actual = orderDao.create(given);
         Assertions.assertEquals(given, actual);
     }
 

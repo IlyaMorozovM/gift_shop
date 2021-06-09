@@ -101,7 +101,7 @@ class OrderServiceImplTest {
         Order order = new Order();
 
         try {
-            orderService.add(order);
+            orderService.create(order);
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to validate: cost must be positive", e.getMessage());
         }
@@ -114,7 +114,7 @@ class OrderServiceImplTest {
         try {
             orderService.delete(given.getId());
         } catch (ServiceException e) {
-            Assertions.assertEquals("Failed to get certificate by it id: " + given.getId(), e.getMessage());
+            Assertions.assertEquals("Failed to get certificate by id = " + given.getId(), e.getMessage());
         }
     }
 

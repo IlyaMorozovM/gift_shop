@@ -50,7 +50,7 @@ class TagServiceImplTest {
         Tag tag = new Tag();
 
         try {
-            tagService.add(tag);
+            tagService.create(tag);
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to validate: tag name is empty", e.getMessage());
         }

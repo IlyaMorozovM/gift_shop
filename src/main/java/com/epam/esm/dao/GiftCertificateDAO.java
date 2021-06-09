@@ -61,7 +61,7 @@ public interface GiftCertificateDAO {
      * @param giftCertificate {@code GiftCertificate} which to be added to data source.
      * @return added {@code GiftCertificate} from data source.
      */
-    GiftCertificate add(GiftCertificate giftCertificate) throws PersistenceException;
+    GiftCertificate create(GiftCertificate giftCertificate) throws PersistenceException;
 
     /**
      * Deletes {@code GiftCertificate} from data source by it id

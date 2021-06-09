@@ -53,15 +53,15 @@ public class TagServiceImpl implements TagService {
         try {
             Tag tag = tagDao.getById(tagId);
             if (tag == null) {
-                LOGGER.error("Failed to get tag by it id: " + tagId);
-                throw new ServiceException("Failed to get tag by it id: " + tagId,
+                LOGGER.error("Failed to get tag by id = " + tagId);
+                throw new ServiceException("Failed to get tag by id = " + tagId,
                         ErrorCodeEnum.FAILED_TO_RETRIEVE_TAG);
             }
 
             return tag;
         } catch (DataAccessException e) {
             LOGGER.error("Following exception was thrown in getTag(int id): " + e.getMessage());
-            throw new ServiceException("Failed to get tag by it id: " + tagId,
+            throw new ServiceException("Failed to get tag by id = " + tagId,
                     ErrorCodeEnum.FAILED_TO_RETRIEVE_TAG);
         }
     }
@@ -110,10 +110,10 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public Tag add(Tag tag) throws ServiceException {
+    public Tag create(Tag tag) throws ServiceException {
         tagValidator.validate(tag);
         try {
-            return tagDao.add(tag);
+            return tagDao.create(tag);
         } catch (PersistenceException | DataAccessException e) {
             LOGGER.error("Failed to add tag");
             throw new ServiceException("Failed to add tag", ErrorCodeEnum.FAILED_TO_ADD_TAG);
@@ -127,7 +127,7 @@ public class TagServiceImpl implements TagService {
             tagDao.deleteById(tagId);
         } catch (DataAccessException | NoResultException | IllegalArgumentException e) {
             LOGGER.error("Following exception was thrown in deleteTag(): " + e.getMessage());
-            throw new ServiceException("Failed to delete tag by it id: " + tagId,
+            throw new ServiceException("Failed to delete tag by id = " + tagId,
                     ErrorCodeEnum.FAILED_TO_DELETE_TAG);
         }
     }

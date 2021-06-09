@@ -82,7 +82,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public Tag add(Tag tag) {
+    public Tag create(Tag tag) {
         tag.setActive(ACTIVE_TAG);
         return persistenceService.add(tag);
     }

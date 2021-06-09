@@ -104,7 +104,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order add(Order order) {
+    public Order create(Order order) {
         order.setActive(ACTIVE_ORDER);
         return persistenceService.add(order);
     }

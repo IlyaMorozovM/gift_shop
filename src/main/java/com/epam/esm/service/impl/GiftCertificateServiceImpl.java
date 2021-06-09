@@ -64,15 +64,15 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         try {
             GiftCertificate giftCertificate = giftCertificateDao.getById(certificateId);
             if (giftCertificate == null) {
-                LOGGER.error("Failed to get certificate by it id: " + certificateId);
-                throw new ServiceException("Failed to get certificate by it id: " + certificateId,
+                LOGGER.error("Failed to get certificate by id = " + certificateId);
+                throw new ServiceException("Failed to get certificate by id = " + certificateId,
                         ErrorCodeEnum.FAILED_TO_RETRIEVE_CERTIFICATE);
             }
 
             return giftCertificate;
         } catch (DataAccessException e) {
             LOGGER.error("Following exception was thrown in getGiftCertificate(int id): " + e.getMessage());
-            throw new ServiceException("Failed to get certificate by it id: " + certificateId,
+            throw new ServiceException("Failed to get certificate by id = " + certificateId,
                     ErrorCodeEnum.FAILED_TO_RETRIEVE_CERTIFICATE);
         }
     }
@@ -105,7 +105,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public GiftCertificate add(GiftCertificate giftCertificate) throws ServiceException {
+    public GiftCertificate create(GiftCertificate giftCertificate) throws ServiceException {
         certificateValidator.validate(giftCertificate);
         try {
 
@@ -115,7 +115,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
             addOrActivateCertificateTags(giftCertificate);
 
-            return giftCertificateDao.add(giftCertificate);
+            return giftCertificateDao.create(giftCertificate);
         } catch (DataAccessException | PersistenceException e) {
             LOGGER.error("Following exception was thrown in addGiftCertificate(): " + e.getMessage());
             throw new ServiceException("Failed to add certificate: certificate already exist",
@@ -132,7 +132,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
                 tag.setActive(true);
                 tag.setId(savedTag.getId());
             } catch (NoResultException | ServiceException e){
-                tagService.add(tag);
+                tagService.create(tag);
             }
         }
     }

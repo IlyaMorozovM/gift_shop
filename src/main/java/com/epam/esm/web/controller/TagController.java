@@ -69,7 +69,7 @@ public class TagController {
 
     @PostMapping
     public ResponseEntity<Object> addTag(@Valid @RequestBody Tag tag) throws ServiceException {
-        return new ResponseEntity<>(modelAssembler.toModel(TagDto.of(tagService.add(tag))), HttpStatus.CREATED);
+        return new ResponseEntity<>(modelAssembler.toModel(TagDto.of(tagService.create(tag))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

@@ -67,7 +67,7 @@ public interface TagDao {
      * @param tag {@code Tag} which to be added to data source.
      * @return added {@code Tag} from data source.
      */
-    Tag add(Tag tag);
+    Tag create(Tag tag);
 
     /**
      * Deletes {@code Tag} from data source by it id

@@ -106,7 +106,7 @@ class GiftCertificateServiceImplTest {
         GiftCertificate giftCertificate = new GiftCertificate();
 
         try {
-            giftCertificateService.add(giftCertificate);
+            giftCertificateService.create(giftCertificate);
         } catch (ServiceException e) {
             Assertions.assertEquals("Failed to validate: certificate name is empty", e.getMessage());
         }
@@ -120,7 +120,7 @@ class GiftCertificateServiceImplTest {
             giftCertificateService.delete(givenCertificate.getId());
         } catch (ServiceException e) {
             Assertions.assertEquals(
-                    "Failed to get certificate by it id: " + givenCertificate.getId(), e.getMessage());
+                    "Failed to get certificate by id = " + givenCertificate.getId(), e.getMessage());
         }
     }
 

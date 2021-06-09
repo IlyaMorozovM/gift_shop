@@ -127,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public Order add(Order order) throws ServiceException {
+    public Order create(Order order) throws ServiceException {
         orderValidator.validate(order);
 
         order.setCreateDate(LocalDateTime.now());
@@ -147,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         try {
-            return orderDao.add(order);
+            return orderDao.create(order);
         } catch (DataAccessException | PersistenceException e) {
             LOGGER.error("Failed to add order");
             throw new ServiceException("Failed to add order", ErrorCodeEnum.FAILED_TO_ADD_ORDER);

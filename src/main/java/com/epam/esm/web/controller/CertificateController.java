@@ -66,7 +66,7 @@ public class CertificateController {
     public ResponseEntity<Object> addGiftCertificate(@Valid @RequestBody GiftCertificate giftCertificate)
             throws ServiceException {
         return new ResponseEntity<>(modelAssembler.toModel(
-                GiftCertificateDto.of(giftCertificateService.add(giftCertificate))), HttpStatus.CREATED);
+                GiftCertificateDto.of(giftCertificateService.create(giftCertificate))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/certificates/{id}")

@@ -55,7 +55,7 @@ class GiftCertificateDaoImplTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        GiftCertificate actual = giftCertificateDAO.add(given);
+        GiftCertificate actual = giftCertificateDAO.create(given);
         Assertions.assertEquals(given, actual);
     }
 
@@ -88,7 +88,7 @@ class GiftCertificateDaoImplTest {
 
         Mockito.when(service.add(given)).thenReturn(given);
 
-        GiftCertificate actual = giftCertificateDAO.add(given);
+        GiftCertificate actual = giftCertificateDAO.create(given);
         Assertions.assertEquals(given, actual);
     }
 
