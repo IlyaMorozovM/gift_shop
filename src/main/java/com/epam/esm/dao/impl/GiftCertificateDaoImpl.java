@@ -13,8 +13,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.*;
-import javax.persistence.criteria.*;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.AbstractQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +78,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     private List<GiftCertificate> getGiftCertificatesFromQuery(
             CertificateSearchCriteria searchCriteria, int page, int size) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+      //!
         CriteriaQuery<GiftCertificate> query = builder.createQuery(GiftCertificate.class);
         Root<GiftCertificate> root = query.from(GiftCertificate.class);
 

@@ -32,7 +32,7 @@ public interface GiftCertificateDAO {
      * which equals to {@code int certificateId}.
      *
      * @param certificateId certificate id.
-     * @return {@code Order}.
+     * @return {@code GiftCertificate}.
      */
     GiftCertificate getById(int certificateId);
 
