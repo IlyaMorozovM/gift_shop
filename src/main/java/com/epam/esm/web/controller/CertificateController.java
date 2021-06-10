@@ -26,6 +26,7 @@ import javax.validation.constraints.Min;
 
 @Validated
 @RestController
+@RequestMapping("/certificates")
 public class CertificateController {
 
     private final GiftCertificateService giftCertificateService;
@@ -46,7 +47,7 @@ public class CertificateController {
         modelAssembler.setModelLinkBuilder(new CertificateLinkBuilder());
     }
 
-    @GetMapping("/certificates")
+    @GetMapping
     public CollectionModel<EntityModel<GiftCertificateDto>> getGiftCertificates(
             @RequestBody(required = false) CertificateSearchCriteria request,
             @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
@@ -57,25 +58,25 @@ public class CertificateController {
                 giftCertificateService.getByPage(request, page, size, sortType, sortBy)));
     }
 
-    @GetMapping("/certificates/{id}")
+    @GetMapping("/{id}")
     public EntityModel<GiftCertificateDto> getGiftCertificate(@PathVariable @Min(1) int id) throws ServiceException {
         return modelAssembler.toModel(GiftCertificateDto.of(giftCertificateService.getById(id)));
     }
 
-    @PostMapping("/certificates")
+    @PostMapping
     public ResponseEntity<Object> addGiftCertificate(@Valid @RequestBody GiftCertificate giftCertificate)
             throws ServiceException {
         return new ResponseEntity<>(modelAssembler.toModel(
                 GiftCertificateDto.of(giftCertificateService.create(giftCertificate))), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/certificates/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteGiftCertificate(@PathVariable int id) throws ServiceException {
         giftCertificateService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/certificates/{id}")
+    @PutMapping("/{id}")
     public EntityModel<GiftCertificateDto> updateGiftCertificate(
             @RequestBody GiftCertificate giftCertificate, @PathVariable int id) throws ServiceException {
         return modelAssembler.toModel(

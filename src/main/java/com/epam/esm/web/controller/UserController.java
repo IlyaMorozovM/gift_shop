@@ -26,6 +26,7 @@ import javax.validation.constraints.Min;
 
 @Validated
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -51,7 +52,7 @@ public class UserController {
         orderModelAssembler.setModelLinkBuilder(new OrderLinkBuilder());
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping
     public CollectionModel<EntityModel<UserDto>> getUsers(
             @RequestBody(required = false) UserSearchCriteria request,
             @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
@@ -62,12 +63,12 @@ public class UserController {
                 UserDto.of(userService.getAllByPage(request, page, size, sortType, sortBy)));
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public EntityModel<UserDto> getUser(@PathVariable @Min(1) int id) throws ServiceException {
         return modelAssembler.toModel(UserDto.of(userService.getById(id)));
     }
 
-    @GetMapping("/users/{id}/orders")
+    @GetMapping("/{id}/orders")
     public CollectionModel<EntityModel<OrderDto>> getUserOrders(
             @RequestBody(required = false) OrderSearchCriteria requestBody,
             @RequestParam int page, @RequestParam int size, @PathVariable int id,

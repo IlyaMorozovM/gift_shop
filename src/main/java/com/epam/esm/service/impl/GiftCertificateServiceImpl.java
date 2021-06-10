@@ -29,7 +29,6 @@ import java.util.Set;
 public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     private static final Logger LOGGER = LogManager.getLogger(GiftCertificateServiceImpl.class);
-    private static final ZoneId DEFAULT_ZONE = ZoneOffset.UTC;
 
     private final GiftCertificateDAO giftCertificateDao;
     private final CertificateValidator certificateValidator;
