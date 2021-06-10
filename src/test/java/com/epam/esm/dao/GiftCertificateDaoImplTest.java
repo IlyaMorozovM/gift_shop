@@ -1,8 +1,8 @@
 package com.epam.esm.dao;
 
 import com.epam.esm.dao.impl.GiftCertificateDaoImpl;
-import com.epam.esm.dao.service.PersistenceService;
-import com.epam.esm.dao.service.impl.PersistenceServiceImpl;
+import com.epam.esm.dao.service.PersistenceManager;
+import com.epam.esm.dao.service.impl.PersistenceManagerImpl;
 import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.model.Tag;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,7 @@ import java.util.*;
 class GiftCertificateDaoImplTest {
 
     private GiftCertificateDAO giftCertificateDAO;
-    private PersistenceService<GiftCertificate> service;
+    private PersistenceManager<GiftCertificate> service;
 
     private static final String GET_CERTIFICATE_BY_NAME = "SELECT g FROM GiftCertificate g WHERE g.name=:name";
     private static final String GET_CERTIFICATE_COUNT =
@@ -26,7 +26,7 @@ class GiftCertificateDaoImplTest {
     @BeforeEach
     public void init() {
         size = 10;
-        service = Mockito.mock(PersistenceServiceImpl.class);
+        service = Mockito.mock(PersistenceManagerImpl.class);
         giftCertificateDAO = new GiftCertificateDaoImpl(service);
     }
 

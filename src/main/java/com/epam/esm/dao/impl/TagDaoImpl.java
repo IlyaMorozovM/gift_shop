@@ -2,7 +2,7 @@ package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.TagDao;
 import com.epam.esm.dao.request.TagSearchCriteria;
-import com.epam.esm.dao.service.PersistenceService;
+import com.epam.esm.dao.service.PersistenceManager;
 import com.epam.esm.model.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ public class TagDaoImpl implements TagDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final PersistenceService<Tag> persistenceService;
+    private final PersistenceManager<Tag> persistenceManager;
 
     private static final boolean ACTIVE_TAG = true;
     private static final boolean DELETED_TAG = false;
@@ -44,23 +44,23 @@ public class TagDaoImpl implements TagDao {
                     "ORDER BY count DESC LIMIT 1";
 
     @Autowired
-    public TagDaoImpl(PersistenceService<Tag> persistenceService) {
-        this.persistenceService = persistenceService;
+    public TagDaoImpl(PersistenceManager<Tag> persistenceManager) {
+        this.persistenceManager = persistenceManager;
     }
 
     @PostConstruct
     private void init() {
-        persistenceService.setType(Tag.class);
+        persistenceManager.setType(Tag.class);
     }
 
     @Override
     public Tag getByName(String name) throws NoResultException {
-        return persistenceService.getModelByName(GET_TAG_BY_NAME, name);
+        return persistenceManager.getModelByName(GET_TAG_BY_NAME, name);
     }
 
     @Override
     public Tag getById(int tagId) {
-        return persistenceService.getModelById(tagId);
+        return persistenceManager.getModelById(tagId);
     }
 
     @Override
@@ -72,28 +72,28 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> getAllByPage(TagSearchCriteria searchCriteria, int page, int size) {
-        return persistenceService.getAllModelsByPage(
+        return persistenceManager.getAllModelsByPage(
                 GET_ALL_TAGS, page, size, searchCriteria.getSortType(), searchCriteria.getSortBy());
     }
 
     @Override
     public int getLastPage(int size) {
-        return persistenceService.getLastPage(GET_TAG_COUNT, size);
+        return persistenceManager.getLastPage(GET_TAG_COUNT, size);
     }
 
     @Override
     public Tag create(Tag tag) {
         tag.setActive(ACTIVE_TAG);
-        return persistenceService.add(tag);
+        return persistenceManager.add(tag);
     }
 
     @Override
     public void deleteById(int tagId) {
-        Tag tag = persistenceService.getModelById(tagId);
+        Tag tag = persistenceManager.getModelById(tagId);
         if (tag == null) {
             throw new NoResultException("Failed to find tag to delete by id: " + tagId);
         }
         tag.setActive(DELETED_TAG);
-        persistenceService.update(tag);
+        persistenceManager.update(tag);
     }
 }

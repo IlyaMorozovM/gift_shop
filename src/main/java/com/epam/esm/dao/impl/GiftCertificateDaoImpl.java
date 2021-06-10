@@ -2,7 +2,7 @@ package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.GiftCertificateDAO;
 import com.epam.esm.dao.request.CertificateSearchCriteria;
-import com.epam.esm.dao.service.PersistenceService;
+import com.epam.esm.dao.service.PersistenceManager;
 import com.epam.esm.dao.sort.SortType;
 import com.epam.esm.model.Tag;
 import com.google.common.base.CaseFormat;
@@ -39,7 +39,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     private static final boolean ACTIVE_CERTIFICATE = true;
     private static final boolean DELETED_CERTIFICATE = false;
 
-    private final PersistenceService<GiftCertificate> persistenceService;
+    private final PersistenceManager<GiftCertificate> persistenceManager;
 
     private static final String GET_CERTIFICATE_BY_NAME =
             "SELECT g FROM GiftCertificate g WHERE g.name=:name AND g.isActive=true ";
@@ -47,23 +47,23 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
             "SELECT count(g.id) FROM GiftCertificate g WHERE g.isActive=true ";
 
     @Autowired
-    public GiftCertificateDaoImpl(PersistenceService<GiftCertificate> persistenceService) {
-        this.persistenceService = persistenceService;
+    public GiftCertificateDaoImpl(PersistenceManager<GiftCertificate> persistenceManager) {
+        this.persistenceManager = persistenceManager;
     }
 
     @PostConstruct
     private void init() {
-        persistenceService.setType(GiftCertificate.class);
+        persistenceManager.setType(GiftCertificate.class);
     }
 
     @Override
     public GiftCertificate getByName(String name) throws NoResultException {
-        return persistenceService.getModelByName(GET_CERTIFICATE_BY_NAME, name);
+        return persistenceManager.getModelByName(GET_CERTIFICATE_BY_NAME, name);
     }
 
     @Override
     public GiftCertificate getById(int certificateId) {
-        return persistenceService.getModelById(certificateId);
+        return persistenceManager.getModelById(certificateId);
     }
 
     @Override
@@ -138,18 +138,18 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
 
     @Override
     public int getLastPage(int size) {
-        return persistenceService.getLastPage(GET_CERTIFICATE_COUNT, size);
+        return persistenceManager.getLastPage(GET_CERTIFICATE_COUNT, size);
     }
 
     @Override
     public GiftCertificate create(GiftCertificate giftCertificate) throws PersistenceException {
         giftCertificate.setActive(ACTIVE_CERTIFICATE);
-        return persistenceService.add(giftCertificate);
+        return persistenceManager.add(giftCertificate);
     }
 
     @Override
     public void delete(int certificateId) {
-        GiftCertificate giftCertificate = persistenceService.getModelById(certificateId);
+        GiftCertificate giftCertificate = persistenceManager.getModelById(certificateId);
         if (giftCertificate == null) {
             throw new NoResultException("Failed to find certificate to delete by id: " + certificateId);
         }
@@ -160,6 +160,6 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     @Override
     public GiftCertificate update(GiftCertificate giftCertificate) {
         giftCertificate.setActive(ACTIVE_CERTIFICATE);
-        return persistenceService.update(giftCertificate);
+        return persistenceManager.update(giftCertificate);
     }
 }

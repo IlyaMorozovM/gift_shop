@@ -1,8 +1,8 @@
 package com.epam.esm.dao;
 
 import com.epam.esm.dao.impl.TagDaoImpl;
-import com.epam.esm.dao.service.PersistenceService;
-import com.epam.esm.dao.service.impl.PersistenceServiceImpl;
+import com.epam.esm.dao.service.PersistenceManager;
+import com.epam.esm.dao.service.impl.PersistenceManagerImpl;
 import com.epam.esm.model.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 class HibernateTagDaoImpTest {
 
     private TagDao tagDao;
-    private PersistenceService<Tag> service;
+    private PersistenceManager<Tag> service;
 
     private static final String GET_TAG_BY_NAME = "SELECT t FROM Tag t WHERE t.name=:name";
     private static final String GET_TAG_COUNT = "SELECT count(t.id) FROM Tag t";
@@ -21,7 +21,7 @@ class HibernateTagDaoImpTest {
     @BeforeEach
     public void init() {
         size = 10;
-        service = Mockito.mock(PersistenceServiceImpl.class);
+        service = Mockito.mock(PersistenceManagerImpl.class);
         tagDao = new TagDaoImpl(service);
     }
 

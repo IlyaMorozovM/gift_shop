@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Ilya Morozov
  */
-public interface PersistenceService<T extends BaseModel> {
+public interface PersistenceManager<T extends BaseModel> {
 
     /**
      * Sets type of {@code BaseModel}.

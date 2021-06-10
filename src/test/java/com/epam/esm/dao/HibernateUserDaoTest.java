@@ -1,8 +1,8 @@
 package com.epam.esm.dao;
 
 import com.epam.esm.dao.impl.UserDaoImpl;
-import com.epam.esm.dao.service.PersistenceService;
-import com.epam.esm.dao.service.impl.PersistenceServiceImpl;
+import com.epam.esm.dao.service.PersistenceManager;
+import com.epam.esm.dao.service.impl.PersistenceManagerImpl;
 import com.epam.esm.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import javax.persistence.NoResultException;
 class HibernateUserDaoTest {
 
     private UserDao userDao;
-    private PersistenceService<User> service;
+    private PersistenceManager<User> service;
 
     private static final String GET_USER_BY_NAME = "SELECT u FROM User u WHERE u.login=:login ";
     private static final String GET_USER_COUNT = "SELECT count(u.id) FROM User u ";
@@ -32,7 +32,7 @@ class HibernateUserDaoTest {
     @BeforeEach
     public void init() {
         size = 10;
-        service = Mockito.mock(PersistenceServiceImpl.class);
+        service = Mockito.mock(PersistenceManagerImpl.class);
         userDao = new UserDaoImpl(service);
     }
 

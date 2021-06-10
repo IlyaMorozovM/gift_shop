@@ -2,7 +2,7 @@ package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.OrderDao;
 import com.epam.esm.dao.request.OrderSearchCriteria;
-import com.epam.esm.dao.service.PersistenceService;
+import com.epam.esm.dao.service.PersistenceManager;
 import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.model.Order;
 import org.hibernate.envers.AuditReaderFactory;
@@ -30,7 +30,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final boolean ACTIVE_ORDER = true;
     private static final boolean DELETED_ORDER = false;
 
-    private final PersistenceService<Order> persistenceService;
+    private final PersistenceManager<Order> persistenceManager;
 
     private static final String GET_ORDER_BY_USER_ID =
             "SELECT o FROM Order o WHERE o.user.id=:userId AND o.isActive=true ";
@@ -39,13 +39,13 @@ public class OrderDaoImpl implements OrderDao {
 
 
     @Autowired
-    public OrderDaoImpl(PersistenceService<Order> persistenceService) {
-        this.persistenceService = persistenceService;
+    public OrderDaoImpl(PersistenceManager<Order> persistenceManager) {
+        this.persistenceManager = persistenceManager;
     }
 
     @PostConstruct
     private void init() {
-        persistenceService.setType(Order.class);
+        persistenceManager.setType(Order.class);
     }
 
     @Override
@@ -89,33 +89,33 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order getById(int orderId) {
-        return persistenceService.getModelById(orderId);
+        return persistenceManager.getModelById(orderId);
     }
 
     @Override
     public List<Order> getAllByPage(OrderSearchCriteria searchCriteria, int page, int size) {
-        return persistenceService.getAllModelsByPage(
+        return persistenceManager.getAllModelsByPage(
                 GET_ALL_ORDERS, page, size, searchCriteria.getSortType(), searchCriteria.getSortBy());
     }
 
     @Override
     public int getLastPage(int size) {
-        return persistenceService.getLastPage(GET_ORDER_COUNT, size);
+        return persistenceManager.getLastPage(GET_ORDER_COUNT, size);
     }
 
     @Override
     public Order create(Order order) {
         order.setActive(ACTIVE_ORDER);
-        return persistenceService.add(order);
+        return persistenceManager.add(order);
     }
 
     @Override
     public void delete(int orderId) {
-        Order order = persistenceService.getModelById(orderId);
+        Order order = persistenceManager.getModelById(orderId);
         if (order == null) {
             throw new NoResultException("Failed to find order to delete by id: " + orderId);
         }
         order.setActive(DELETED_ORDER);
-        persistenceService.update(order);
+        persistenceManager.update(order);
     }
 }
