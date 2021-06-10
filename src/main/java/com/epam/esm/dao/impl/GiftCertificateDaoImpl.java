@@ -69,16 +69,16 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     @Override
     public List<GiftCertificate> getByRequestBody(
             CertificateSearchCriteria searchCriteria, int page, int size) {
-        List<GiftCertificate> giftCertificates = getGiftCertificatesFromQuery(searchCriteria, page, size);
+        List<GiftCertificate> giftCertificates = getGiftCertificates(searchCriteria, page, size);
         removeDeletedTags(giftCertificates);
         
         return giftCertificates;
     }
 
-    private List<GiftCertificate> getGiftCertificatesFromQuery(
+    private List<GiftCertificate> getGiftCertificates(
             CertificateSearchCriteria searchCriteria, int page, int size) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-      //!
+      
         CriteriaQuery<GiftCertificate> query = builder.createQuery(GiftCertificate.class);
         Root<GiftCertificate> root = query.from(GiftCertificate.class);
 
