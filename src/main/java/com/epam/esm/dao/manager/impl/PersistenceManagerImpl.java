@@ -1,6 +1,6 @@
-package com.epam.esm.dao.service.impl;
+package com.epam.esm.dao.manager.impl;
 
-import com.epam.esm.dao.service.PersistenceManager;
+import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.dao.sort.SortBy;
 import com.epam.esm.dao.sort.SortType;
 import com.epam.esm.model.BaseModel;

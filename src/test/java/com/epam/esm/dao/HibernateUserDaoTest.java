@@ -1,8 +1,8 @@
 package com.epam.esm.dao;
 
 import com.epam.esm.dao.impl.UserDaoImpl;
-import com.epam.esm.dao.service.PersistenceManager;
-import com.epam.esm.dao.service.impl.PersistenceManagerImpl;
+import com.epam.esm.dao.manager.PersistenceManager;
+import com.epam.esm.dao.manager.impl.PersistenceManagerImpl;
 import com.epam.esm.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -2,7 +2,7 @@ package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.TagDao;
 import com.epam.esm.dao.request.TagSearchCriteria;
-import com.epam.esm.dao.service.PersistenceManager;
+import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.model.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

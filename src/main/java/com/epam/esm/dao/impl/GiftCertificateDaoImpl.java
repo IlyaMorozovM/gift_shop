@@ -2,7 +2,7 @@ package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.GiftCertificateDAO;
 import com.epam.esm.dao.request.CertificateSearchCriteria;
-import com.epam.esm.dao.service.PersistenceManager;
+import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.dao.sort.SortType;
 import com.epam.esm.model.Tag;
 import com.google.common.base.CaseFormat;
@@ -30,7 +30,7 @@ import java.util.List;
 
 @Repository
 @EntityScan(basePackages = "com.epam.esm.model")
-@ComponentScan(basePackages = "com.epam.esm.dao.service.impl")
+@ComponentScan(basePackages = "com.epam.esm.dao.manager.impl")
 public class GiftCertificateDaoImpl implements GiftCertificateDAO {
 
     @PersistenceContext

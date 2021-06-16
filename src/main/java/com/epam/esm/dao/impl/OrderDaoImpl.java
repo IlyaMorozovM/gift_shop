@@ -2,7 +2,7 @@ package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.OrderDao;
 import com.epam.esm.dao.request.OrderSearchCriteria;
-import com.epam.esm.dao.service.PersistenceManager;
+import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.model.Order;
 import org.hibernate.envers.AuditReaderFactory;
