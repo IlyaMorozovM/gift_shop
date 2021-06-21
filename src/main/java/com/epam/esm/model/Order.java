@@ -3,17 +3,26 @@ package com.epam.esm.model;
 import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 @Audited
 @Where(clause = "Active = true")
 public class Order implements BaseModel {

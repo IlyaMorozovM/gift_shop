@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "user")
 @Audited
 public class User implements BaseModel {
 
@@ -16,10 +16,10 @@ public class User implements BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "Login")
+    @Column(name = "login")
     private String login;
 
-    @Column(name = "Password")
+    @Column(name = "password")
     private String password;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER,
