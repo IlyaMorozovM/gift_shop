@@ -111,6 +111,6 @@ public class OrderDaoImpl implements OrderDao {
         if (order == null) {
             throw new NoResultException("Failed to find order to delete by id: " + orderId);
         }
-        persistenceManager.update(order);
+        persistenceManager.delete(orderId);
     }
 }

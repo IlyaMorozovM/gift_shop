@@ -89,6 +89,6 @@ public class TagDaoImpl implements TagDao {
         if (tag == null) {
             throw new NoResultException("Failed to find tag to delete by id: " + tagId);
         }
-        persistenceManager.update(tag);
+        persistenceManager.delete(tagId);
     }
 }

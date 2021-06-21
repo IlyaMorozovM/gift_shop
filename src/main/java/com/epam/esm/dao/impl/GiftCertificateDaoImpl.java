@@ -144,7 +144,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
         if (giftCertificate == null) {
             throw new NoResultException("Failed to find certificate to delete by id: " + certificateId);
         }
-        update(giftCertificate);
+        persistenceManager.delete(certificateId);
     }
 
     @Override
