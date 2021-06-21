@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @Audited
-public class User implements BaseModel {
+public class User extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -25,7 +25,7 @@ import java.util.Set;
 @Table(name = "orders")
 @Audited
 @Where(clause = "Active = true")
-public class Order implements BaseModel {
+public class Order extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

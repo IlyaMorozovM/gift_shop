@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(name = "tag")
 @Audited
 @Where(clause = "Active = true")
-public class Tag implements BaseModel {
+public class Tag extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

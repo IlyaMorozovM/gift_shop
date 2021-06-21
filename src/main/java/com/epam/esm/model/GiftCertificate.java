@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "gift_certificate")
 @Audited
 @Where(clause = "Active = true")
-public class GiftCertificate implements BaseModel {
+public class GiftCertificate extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
