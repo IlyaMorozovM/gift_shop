@@ -48,7 +48,7 @@ public class CertificateController {
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<GiftCertificateDto>> getGiftCertificates(
+    public CollectionModel<EntityModel<GiftCertificateDto>> get(
             @RequestBody(required = false) CertificateSearchCriteria request,
             @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
@@ -59,25 +59,25 @@ public class CertificateController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<GiftCertificateDto> getGiftCertificate(@PathVariable @Min(1) int id) throws ServiceException {
+    public EntityModel<GiftCertificateDto> getById(@PathVariable @Min(1) int id) throws ServiceException {
         return modelAssembler.toModel(GiftCertificateDto.of(giftCertificateService.getById(id)));
     }
 
     @PostMapping
-    public ResponseEntity<Object> addGiftCertificate(@Valid @RequestBody GiftCertificate giftCertificate)
+    public ResponseEntity<Object> add(@Valid @RequestBody GiftCertificate giftCertificate)
             throws ServiceException {
         return new ResponseEntity<>(modelAssembler.toModel(
                 GiftCertificateDto.of(giftCertificateService.create(giftCertificate))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteGiftCertificate(@PathVariable int id) throws ServiceException {
+    public ResponseEntity<Object> delete(@PathVariable int id) throws ServiceException {
         giftCertificateService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}")
-    public EntityModel<GiftCertificateDto> updateGiftCertificate(
+    public EntityModel<GiftCertificateDto> update(
             @RequestBody GiftCertificate giftCertificate, @PathVariable int id) throws ServiceException {
         return modelAssembler.toModel(
                 GiftCertificateDto.of(giftCertificateService.update(giftCertificate, id)));

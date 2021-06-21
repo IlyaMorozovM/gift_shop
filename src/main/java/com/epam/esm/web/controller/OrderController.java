@@ -47,7 +47,7 @@ public class OrderController {
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<OrderDto>> getOrders(
+    public CollectionModel<EntityModel<OrderDto>> get(
             @RequestBody(required = false) OrderSearchCriteria requestBody,
             @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
@@ -58,17 +58,17 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<OrderDto> getOrder(@PathVariable @Min(1) int id) throws ServiceException {
+    public EntityModel<OrderDto> getById(@PathVariable @Min(1) int id) throws ServiceException {
         return modelAssembler.toModel(OrderDto.of(orderService.getById(id)));
     }
 
     @PostMapping
-    public ResponseEntity<Object> addOrder(@Valid @RequestBody Order order) throws ServiceException {
+    public ResponseEntity<Object> add(@Valid @RequestBody Order order) throws ServiceException {
         return new ResponseEntity<>(modelAssembler.toModel(OrderDto.of(orderService.create(order))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteOrder(@PathVariable int id) throws ServiceException {
+    public ResponseEntity<Object> delete(@PathVariable int id) throws ServiceException {
         orderService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

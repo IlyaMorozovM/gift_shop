@@ -29,7 +29,7 @@ public class TagLinkBuilder implements ModelLinkBuilder<TagDto> {
     @Override
     public void linkToModel(EntityModel<TagDto> modelDto) {
         try {
-            modelDto.add(linkTo(methodOn(TagController.class).getTag(
+            modelDto.add(linkTo(methodOn(TagController.class).getById(
                     Objects.requireNonNull(modelDto.getContent()).getId())).withRel(CURRENT_TAG));
         } catch (ServiceException ignored) {
         }
@@ -81,7 +81,7 @@ public class TagLinkBuilder implements ModelLinkBuilder<TagDto> {
 
     private Link getLinkToTagsPage(int page, int size, String rel, SortType sortType, SortBy sortBy)
             throws ServiceException {
-        return linkTo(methodOn(TagController.class).getTags(defaultRequestBody, page, size,
+        return linkTo(methodOn(TagController.class).get(defaultRequestBody, page, size,
                 sortType, sortBy)).withRel(rel);
     }
 }

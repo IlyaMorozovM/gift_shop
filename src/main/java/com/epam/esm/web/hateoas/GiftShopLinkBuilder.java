@@ -31,16 +31,16 @@ public class GiftShopLinkBuilder {
     public List<Link> getRestApi() throws ServiceException {
         List<Link> links = new ArrayList<>();
 
-        links.add(linkTo(methodOn(UserController.class).getUsers(userRequestBody, DEFAULT_PAGE, DEFAULT_SIZE,
+        links.add(linkTo(methodOn(UserController.class).get(userRequestBody, DEFAULT_PAGE, DEFAULT_SIZE,
                 userRequestBody.getSortType(), userRequestBody.getSortBy())).withRel("users"));
 
-        links.add(linkTo(methodOn(OrderController.class).getOrders(orderRequestBody, DEFAULT_PAGE, DEFAULT_SIZE,
+        links.add(linkTo(methodOn(OrderController.class).get(orderRequestBody, DEFAULT_PAGE, DEFAULT_SIZE,
                 orderRequestBody.getSortType(), orderRequestBody.getSortBy())).withRel("orders"));
 
-        links.add(linkTo(methodOn(TagController.class).getTags(tagRequestBody, DEFAULT_PAGE, DEFAULT_SIZE,
+        links.add(linkTo(methodOn(TagController.class).get(tagRequestBody, DEFAULT_PAGE, DEFAULT_SIZE,
                 tagRequestBody.getSortType(), tagRequestBody.getSortBy())).withRel("tags"));
 
-        links.add(linkTo(methodOn(CertificateController.class).getGiftCertificates(
+        links.add(linkTo(methodOn(CertificateController.class).get(
                 certificateRequestBody, DEFAULT_PAGE, DEFAULT_SIZE,
                 certificateRequestBody.getSortType(), certificateRequestBody.getSortBy())).withRel("certificates"));
 

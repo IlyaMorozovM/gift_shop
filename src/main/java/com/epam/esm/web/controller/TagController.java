@@ -47,7 +47,7 @@ public class TagController {
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<TagDto>> getTags(
+    public CollectionModel<EntityModel<TagDto>> get(
             @RequestBody(required = false) TagSearchCriteria requestBody,
             @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
@@ -58,22 +58,22 @@ public class TagController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<TagDto> getTag(@PathVariable @Min(1) int id) throws ServiceException {
+    public EntityModel<TagDto> getById(@PathVariable @Min(1) int id) throws ServiceException {
         return modelAssembler.toModel(TagDto.of(tagService.getById(id)));
     }
 
     @GetMapping("/most_frequent")
-    public EntityModel<TagDto> getMostFrequentTag() throws ServiceException {
+    public EntityModel<TagDto> getMostFrequent() throws ServiceException {
         return modelAssembler.toModel(TagDto.of(tagService.getMostFrequentFromHighestCostUser()));
     }
 
     @PostMapping
-    public ResponseEntity<Object> addTag(@Valid @RequestBody Tag tag) throws ServiceException {
+    public ResponseEntity<Object> add(@Valid @RequestBody Tag tag) throws ServiceException {
         return new ResponseEntity<>(modelAssembler.toModel(TagDto.of(tagService.create(tag))), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteTag(@PathVariable int id) throws ServiceException {
+    public ResponseEntity<Object> delete(@PathVariable int id) throws ServiceException {
         tagService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

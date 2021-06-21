@@ -38,7 +38,7 @@ public class UserLinkBuilder implements ModelLinkBuilder<UserDto> {
     @Override
     public void linkToModel(EntityModel<UserDto> modelDto) {
         try {
-            modelDto.add(linkTo(methodOn(UserController.class).getUser(
+            modelDto.add(linkTo(methodOn(UserController.class).getById(
                     Objects.requireNonNull(modelDto.getContent()).getId())).withRel(CURRENT_USERS));
             modelDto.getContent().getOrders().forEach(o -> orderLinkBuilder.linkToModel(o));
         } catch (ServiceException ignored) {
@@ -91,7 +91,7 @@ public class UserLinkBuilder implements ModelLinkBuilder<UserDto> {
 
     private Link getLinkToUsersPage(int page, int size, String rel,
                                     SortType sortType, SortBy sortBy) throws ServiceException {
-        return linkTo(methodOn(UserController.class).getUsers(defaultRequestBody, page, size,
+        return linkTo(methodOn(UserController.class).get(defaultRequestBody, page, size,
                 sortType, sortBy)).withRel(rel);
     }
 }

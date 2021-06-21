@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<UserDto>> getUsers(
+    public CollectionModel<EntityModel<UserDto>> get(
             @RequestBody(required = false) UserSearchCriteria request,
             @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
@@ -64,12 +64,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<UserDto> getUser(@PathVariable @Min(1) int id) throws ServiceException {
+    public EntityModel<UserDto> getById(@PathVariable @Min(1) int id) throws ServiceException {
         return modelAssembler.toModel(UserDto.of(userService.getById(id)));
     }
 
     @GetMapping("/{id}/orders")
-    public CollectionModel<EntityModel<OrderDto>> getUserOrders(
+    public CollectionModel<EntityModel<OrderDto>> getOrders(
             @RequestBody(required = false) OrderSearchCriteria requestBody,
             @RequestParam int page, @RequestParam int size, @PathVariable int id,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {

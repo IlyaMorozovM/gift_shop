@@ -41,7 +41,7 @@ public class OrderLinkBuilder implements ModelLinkBuilder<OrderDto> {
     @Override
     public void linkToModel(EntityModel<OrderDto> modelDto) {
         try {
-            modelDto.add(linkTo(methodOn(OrderController.class).getOrder(
+            modelDto.add(linkTo(methodOn(OrderController.class).getById(
                     Objects.requireNonNull(modelDto.getContent()).getId())).withRel(CURRENT_ORDER));
 
             modelDto.getContent().getGiftCertificateList().forEach(c -> {
@@ -99,6 +99,6 @@ public class OrderLinkBuilder implements ModelLinkBuilder<OrderDto> {
     private Link getLinkToOrdersPage(int page, int size, String rel, SortType sortType, SortBy sortBy)
             throws ServiceException {
         return linkTo(methodOn(OrderController.class)
-                .getOrders(defaultRequestBody, page, size, sortType, sortBy)).withRel(rel);
+                .get(defaultRequestBody, page, size, sortType, sortBy)).withRel(rel);
     }
 }
