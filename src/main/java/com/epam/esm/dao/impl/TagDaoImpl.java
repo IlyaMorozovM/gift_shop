@@ -19,18 +19,15 @@ public class TagDaoImpl implements TagDao {
 
     private final PersistenceManager<Tag> persistenceManager;
 
-    private static final boolean ACTIVE_TAG = true;
-    private static final boolean DELETED_TAG = false;
-
-    private static final String GET_TAG_BY_NAME = "SELECT t FROM Tag t WHERE t.name=:name AND t.isActive=true ";
-    private static final String GET_ALL_TAGS = "SELECT t FROM Tag t WHERE t.isActive=true ";
-    private static final String GET_TAG_COUNT = "SELECT count(t.id) FROM Tag t WHERE t.isActive=true ";
+    private static final String GET_TAG_BY_NAME = "SELECT t FROM Tag t WHERE t.name=:name ";
+    private static final String GET_ALL_TAGS = "SELECT t FROM Tag t ";
+    private static final String GET_TAG_COUNT = "SELECT count(t.id) FROM Tag t ";
     private static final String GET_MOST_FREQUENT_TAG =
-            "SELECT tags.ID, tags.Active, tags.Name, count(tags.Name) AS count FROM Orders " +
+            "SELECT tag.id, tag.name, count(tag.name) AS count FROM Orders " +
                     "INNER JOIN OrderCertificate ON OrderCertificate.OrderId = Orders.id " +
-                    "INNER JOIN GiftCertificates ON CertificateId = GiftCertificates.id " +
-                    "INNER JOIN CertificateTag ON CertificateTag.CertificateId = GiftCertificates.id " +
-                    "INNER JOIN tags ON CertificateTag.tagId = tags.id " +
+                    "INNER JOIN gift_certificate ON certificateId = gift_certificate.id " +
+                    "INNER JOIN certificate_tag_m2m ON certificate_tag_m2m.certificate_id = gift_certificate.id " +
+                    "INNER JOIN tag ON certificate_tag_m2m.tag_id = tag.id " +
                     "WHERE userId IN ( " +
                     "   SELECT userId FROM ( " +
                     "       SELECT Sum(Cost) sumCost, userId " +
@@ -40,7 +37,7 @@ public class TagDaoImpl implements TagDao {
                     "       LIMIT 1 " +
                     "   ) AS ids " +
                     ") " +
-                    "GROUP BY tags.ID " +
+                    "GROUP BY tag.id " +
                     "ORDER BY count DESC LIMIT 1";
 
     @Autowired
@@ -83,7 +80,6 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public Tag create(Tag tag) {
-        tag.setActive(ACTIVE_TAG);
         return persistenceManager.add(tag);
     }
 
@@ -93,7 +89,6 @@ public class TagDaoImpl implements TagDao {
         if (tag == null) {
             throw new NoResultException("Failed to find tag to delete by id: " + tagId);
         }
-        tag.setActive(DELETED_TAG);
         persistenceManager.update(tag);
     }
 }

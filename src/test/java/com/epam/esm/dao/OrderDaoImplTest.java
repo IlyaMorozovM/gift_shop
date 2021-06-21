@@ -20,8 +20,8 @@ class OrderDaoImplTest {
     private OrderDao orderDao;
     private PersistenceManager<Order> service;
 
-    private static final String GET_ALL_ORDERS = "SELECT o FROM Order o WHERE o.isActive=true ";
-    private static final String GET_ORDER_COUNT = "SELECT count(o.id) FROM Order o WHERE o.isActive=true ";
+    private static final String GET_ALL_ORDERS = "SELECT o FROM Order o ";
+    private static final String GET_ORDER_COUNT = "SELECT count(o.id) FROM Order o ";
     private int size;
     private int page;
 
@@ -29,7 +29,6 @@ class OrderDaoImplTest {
         Order order = new Order();
         order.setId(1);
         order.setTotalCost(10.10);
-        order.setActive(true);
         order.setUser(new User(1, "login", "password"));
 
         return order;
@@ -39,7 +38,6 @@ class OrderDaoImplTest {
         Order order = new Order();
         order.setId(id);
         order.setTotalCost(10.10);
-        order.setActive(true);
         order.setUser(new User(1, "login", "password"));
 
         return order;

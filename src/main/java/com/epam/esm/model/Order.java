@@ -24,7 +24,6 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 @Audited
-@Where(clause = "Active = true")
 public class Order extends BaseModel {
 
     @Id
@@ -51,9 +50,6 @@ public class Order extends BaseModel {
             inverseJoinColumns = @JoinColumn(name = "certificateId")
     )
     private Set<GiftCertificate> giftCertificateList = new HashSet<>();
-
-    @Column(name = "Active")
-    private boolean isActive;
 
     public Order() {
     }
@@ -104,14 +100,6 @@ public class Order extends BaseModel {
 
     public void setGiftCertificateList(Set<GiftCertificate> giftCertificateList) {
         this.giftCertificateList = giftCertificateList;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     @Override

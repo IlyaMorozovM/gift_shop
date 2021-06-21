@@ -27,15 +27,12 @@ public class OrderDaoImpl implements OrderDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private static final boolean ACTIVE_ORDER = true;
-    private static final boolean DELETED_ORDER = false;
-
     private final PersistenceManager<Order> persistenceManager;
 
     private static final String GET_ORDER_BY_USER_ID =
-            "SELECT o FROM Order o WHERE o.user.id=:userId AND o.isActive=true ";
-    private static final String GET_ALL_ORDERS = "SELECT o FROM Order o WHERE o.isActive=true ";
-    private static final String GET_ORDER_COUNT = "SELECT count(o.id) FROM Order o WHERE o.isActive=true ";
+            "SELECT o FROM Order o WHERE o.user.id=:userId ";
+    private static final String GET_ALL_ORDERS = "SELECT o FROM Order o ";
+    private static final String GET_ORDER_COUNT = "SELECT count(o.id) FROM Order o ";
 
 
     @Autowired
@@ -105,7 +102,6 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order create(Order order) {
-        order.setActive(ACTIVE_ORDER);
         return persistenceManager.add(order);
     }
 
@@ -115,7 +111,6 @@ public class OrderDaoImpl implements OrderDao {
         if (order == null) {
             throw new NoResultException("Failed to find order to delete by id: " + orderId);
         }
-        order.setActive(DELETED_ORDER);
         persistenceManager.update(order);
     }
 }

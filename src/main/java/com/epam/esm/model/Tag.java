@@ -13,7 +13,6 @@ import java.util.Set;
 @Entity
 @Table(name = "tag")
 @Audited
-@Where(clause = "Active = true")
 public class Tag extends BaseModel {
 
     @Id
@@ -25,8 +24,6 @@ public class Tag extends BaseModel {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "active")
-    private boolean isActive;
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
     private Set<GiftCertificate> giftCertificates = new HashSet<>();
@@ -59,14 +56,6 @@ public class Tag extends BaseModel {
         this.name = name;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,7 +74,6 @@ public class Tag extends BaseModel {
         return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", isActive=" + isActive +
                 '}';
     }
 }

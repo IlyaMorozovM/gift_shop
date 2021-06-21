@@ -36,15 +36,12 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private static final boolean ACTIVE_CERTIFICATE = true;
-    private static final boolean DELETED_CERTIFICATE = false;
-
     private final PersistenceManager<GiftCertificate> persistenceManager;
 
     private static final String GET_CERTIFICATE_BY_NAME =
-            "SELECT g FROM GiftCertificate g WHERE g.name=:name AND g.isActive=true ";
+            "SELECT g FROM GiftCertificate g WHERE g.name=:name ";
     private static final String GET_CERTIFICATE_COUNT =
-            "SELECT count(g.id) FROM GiftCertificate g WHERE g.isActive=true ";
+            "SELECT count(g.id) FROM GiftCertificate g ";
 
     @Autowired
     public GiftCertificateDaoImpl(PersistenceManager<GiftCertificate> persistenceManager) {
@@ -70,8 +67,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     public List<GiftCertificate> getByRequestBody(
             CertificateSearchCriteria searchCriteria, int page, int size) {
         List<GiftCertificate> giftCertificates = getGiftCertificates(searchCriteria, page, size);
-        removeDeletedTags(giftCertificates);
-        
+
         return giftCertificates;
     }
 
@@ -132,10 +128,6 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
         query.where(predArray);
     }
 
-    private void removeDeletedTags(List<GiftCertificate> giftCertificates) {
-        giftCertificates.forEach(g -> g.getTags().removeIf(tag -> !tag.isActive()));
-    }
-
     @Override
     public int getLastPage(int size) {
         return persistenceManager.getLastPage(GET_CERTIFICATE_COUNT, size);
@@ -143,7 +135,6 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
 
     @Override
     public GiftCertificate create(GiftCertificate giftCertificate) throws PersistenceException {
-        giftCertificate.setActive(ACTIVE_CERTIFICATE);
         return persistenceManager.add(giftCertificate);
     }
 
@@ -153,13 +144,11 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
         if (giftCertificate == null) {
             throw new NoResultException("Failed to find certificate to delete by id: " + certificateId);
         }
-        giftCertificate.setActive(DELETED_CERTIFICATE);
         update(giftCertificate);
     }
 
     @Override
     public GiftCertificate update(GiftCertificate giftCertificate) {
-        giftCertificate.setActive(ACTIVE_CERTIFICATE);
         return persistenceManager.update(giftCertificate);
     }
 }

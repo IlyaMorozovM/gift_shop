@@ -139,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
             for (GiftCertificate giftCertificate: order.getGiftCertificateList()) {
                 GiftCertificate giftCertificateOfOrder = giftCertificateService.getByName(giftCertificate.getName());
                 giftCertificate.setId(giftCertificateOfOrder.getId());
-                giftCertificateService.addOrActivateCertificateTags(giftCertificate);
+                giftCertificateService.addCertificateTags(giftCertificate);
             }
         } catch (ServiceException | NoResultException e){
             LOGGER.error("Failed to add order");

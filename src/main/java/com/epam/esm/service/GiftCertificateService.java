@@ -77,7 +77,7 @@ public interface GiftCertificateService {
      * @param giftCertificate which tags be added or activated.
      * @throws ServiceException when tag can't be added.
      */
-    void addOrActivateCertificateTags(GiftCertificate giftCertificate) throws ServiceException;
+    void addCertificateTags(GiftCertificate giftCertificate) throws ServiceException;
 
     /**
      * Deletes {@code GiftCertificate} from persistence layer.

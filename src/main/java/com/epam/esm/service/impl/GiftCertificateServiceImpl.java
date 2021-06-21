@@ -112,7 +112,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
             giftCertificate.setCreateDate(createdDate);
             giftCertificate.setLastUpdateDate(createdDate);
 
-            addOrActivateCertificateTags(giftCertificate);
+            addCertificateTags(giftCertificate);
 
             return giftCertificateDao.create(giftCertificate);
         } catch (DataAccessException | PersistenceException e) {
@@ -123,12 +123,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public void addOrActivateCertificateTags(GiftCertificate giftCertificate) throws ServiceException {
+    public void addCertificateTags(GiftCertificate giftCertificate) throws ServiceException {
         Set<Tag> tags = giftCertificate.getTags();
         for (Tag tag: tags){
             try {
                 Tag savedTag = tagService.getByName(tag.getName());
-                tag.setActive(true);
                 tag.setId(savedTag.getId());
             } catch (NoResultException | ServiceException e){
                 tagService.create(tag);
@@ -164,7 +163,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
                 giftCertificate.setLastUpdateDate(LocalDateTime.now());
                 giftCertificate.setCreateDate(giftCertificateFromDB.getCreateDate());
 
-                addOrActivateCertificateTags(giftCertificate);
+                addCertificateTags(giftCertificate);
 
                 giftCertificate = giftCertificateDao.update(giftCertificate);
                 if (giftCertificate == null) {

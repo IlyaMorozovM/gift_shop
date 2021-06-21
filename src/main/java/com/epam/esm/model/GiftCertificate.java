@@ -15,7 +15,6 @@ import java.util.Set;
 @Entity
 @Table(name = "gift_certificate")
 @Audited
-@Where(clause = "Active = true")
 public class GiftCertificate extends BaseModel {
 
     @Id
@@ -45,9 +44,6 @@ public class GiftCertificate extends BaseModel {
     @Min(value = 1, message = "duration must be greater than 0")
     @Column(name = "duration")
     private int duration;
-
-    @Column(name = "active")
-    private boolean isActive;
 
     @NotNull(message = "certificate must have at least 1 tag")
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
@@ -122,14 +118,6 @@ public class GiftCertificate extends BaseModel {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     @Override

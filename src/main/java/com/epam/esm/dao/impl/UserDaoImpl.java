@@ -36,7 +36,6 @@ public class UserDaoImpl implements UserDao {
         if (user == null) {
             throw new NoResultException();
         }
-        removeDeletedOrdersFromUser(user);
         return user;
     }
 
@@ -46,7 +45,6 @@ public class UserDaoImpl implements UserDao {
         if (user == null) {
             throw new NoResultException();
         }
-        removeDeletedOrdersFromUser(user);
         return user;
     }
 
@@ -54,7 +52,6 @@ public class UserDaoImpl implements UserDao {
     public List<User> getAllByPage(UserSearchCriteria searchCriteria, int page, int size) {
         List<User> users = persistenceManager.getAllModelsByPage(
                 GET_ALL_USERS, page, size, searchCriteria.getSortType(), searchCriteria.getSortBy());
-        removeDeletedOrdersFromUsers(users);
 
         return users;
     }
@@ -64,11 +61,4 @@ public class UserDaoImpl implements UserDao {
         return persistenceManager.getLastPage(GET_USER_COUNT, size);
     }
 
-    private void removeDeletedOrdersFromUsers(List<User> users) {
-        users.forEach(this::removeDeletedOrdersFromUser);
-    }
-
-    private void removeDeletedOrdersFromUser(User user) {
-        user.getOrders().removeIf(o -> !o.isActive());
-    }
 }

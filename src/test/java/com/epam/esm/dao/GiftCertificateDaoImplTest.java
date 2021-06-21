@@ -20,7 +20,7 @@ class GiftCertificateDaoImplTest {
 
     private static final String GET_CERTIFICATE_BY_NAME = "SELECT g FROM GiftCertificate g WHERE g.name=:name";
     private static final String GET_CERTIFICATE_COUNT =
-            "SELECT count(g.id) FROM GiftCertificate g WHERE o.isActive=true ";
+            "SELECT count(g.id) FROM GiftCertificate g ";
     private int size;
 
     @BeforeEach
