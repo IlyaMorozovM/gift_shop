@@ -8,13 +8,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "giftcertificates")
+@Table(name = "gift_certificate")
 @Audited
 @Where(clause = "Active = true")
 public class GiftCertificate implements BaseModel {
@@ -25,29 +24,29 @@ public class GiftCertificate implements BaseModel {
 
     @NotNull(message = "certificate must have name")
     @NotEmpty(message = "name must be not empty")
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
     @NotNull(message = "certificate must have description")
     @NotEmpty(message = "description must be not empty")
-    @Column(name = "Description")
+    @Column(name = "description")
     private String description;
 
     @Min(value = 0, message = "price must be greater than 0 or = 0")
-    @Column(name = "Price")
+    @Column(name = "price")
     private double price;
 
-    @Column(name = "CreateDate")
+    @Column(name = "create_date")
     private LocalDateTime createDate;
 
-    @Column(name = "LastUpdateDate")
+    @Column(name = "last_update_date")
     private LocalDateTime lastUpdateDate;
 
     @Min(value = 1, message = "duration must be greater than 0")
-    @Column(name = "Duration")
+    @Column(name = "duration")
     private int duration;
 
-    @Column(name = "Active")
+    @Column(name = "active")
     private boolean isActive;
 
     @NotNull(message = "certificate must have at least 1 tag")
@@ -55,9 +54,9 @@ public class GiftCertificate implements BaseModel {
             CascadeType.MERGE
     })
     @JoinTable(
-            name = "certificatetag",
-            joinColumns = @JoinColumn(name = "CertificateId"),
-            inverseJoinColumns = @JoinColumn(name = "TagId")
+            name = "certificate_tag_m2m",
+            joinColumns = @JoinColumn(name = "certificate_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();
 

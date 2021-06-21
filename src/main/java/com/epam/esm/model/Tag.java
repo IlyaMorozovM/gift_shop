@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tag")
 @Audited
 @Where(clause = "Active = true")
 public class Tag implements BaseModel {
@@ -22,10 +22,10 @@ public class Tag implements BaseModel {
 
     @NotNull(message = "tag must have name")
     @NotEmpty(message = "name must be not empty")
-    @Column(name = "Name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "Active")
+    @Column(name = "active")
     private boolean isActive;
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
