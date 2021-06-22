@@ -10,7 +10,6 @@ import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.service.GiftCertificateService;
 import com.epam.esm.dao.request.CertificateSearchCriteria;
 import com.epam.esm.service.exception.ServiceException;
-import com.epam.esm.service.util.CertificateValidator;
 import com.epam.esm.service.util.PaginationValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -31,23 +30,19 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     private static final Logger LOGGER = LogManager.getLogger(GiftCertificateServiceImpl.class);
 
     private final GiftCertificateDAO giftCertificateDao;
-    private final CertificateValidator certificateValidator;
     private final PaginationValidator paginationValidator;
     private final TagService tagService;
 
     @Autowired
     public GiftCertificateServiceImpl(GiftCertificateDAO giftCertificateDao,
-                                      CertificateValidator certificateValidator, PaginationValidator paginationValidator,
-                                      TagService tagService) {
+                                      PaginationValidator paginationValidator, TagService tagService) {
         this.giftCertificateDao = giftCertificateDao;
-        this.certificateValidator = certificateValidator;
         this.paginationValidator = paginationValidator;
         this.tagService = tagService;
     }
 
     @Override
     public GiftCertificate getByName(String name) throws ServiceException {
-        certificateValidator.validateName(name);
         try {
             return giftCertificateDao.getByName(name);
         } catch (DataAccessException e) {
@@ -59,7 +54,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     public GiftCertificate getById(long certificateId) throws ServiceException {
-        certificateValidator.validateId(certificateId);
         try {
             GiftCertificate giftCertificate = giftCertificateDao.getById(certificateId);
             if (giftCertificate == null) {
@@ -86,7 +80,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         }
         searchCriteria.setSortType(sortType);
         searchCriteria.setSortBy(sortBy);
-        certificateValidator.validateCertificateSearchCriteria(searchCriteria);
 
         return giftCertificateDao.getByRequestBody(searchCriteria, page, size);
     }
@@ -105,7 +98,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     @Transactional(rollbackFor = ServiceException.class)
     public GiftCertificate create(GiftCertificate giftCertificate) throws ServiceException {
-        certificateValidator.validate(giftCertificate);
         try {
 
             LocalDateTime createdDate = LocalDateTime.now();
@@ -156,7 +148,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Transactional(rollbackFor = ServiceException.class)
     public GiftCertificate update(GiftCertificate giftCertificate, int id) throws ServiceException {
         giftCertificate.setId(id);
-        certificateValidator.validate(giftCertificate);
         try {
             if (giftCertificateDao.getById(id) != null) {
                 GiftCertificate giftCertificateFromDB = giftCertificateDao.getById(id);

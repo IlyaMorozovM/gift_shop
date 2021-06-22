@@ -9,7 +9,6 @@ import com.epam.esm.service.TagService;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.dao.request.TagSearchCriteria;
 import com.epam.esm.service.util.PaginationValidator;
-import com.epam.esm.service.util.TagValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +26,16 @@ public class TagServiceImpl implements TagService {
     private static final Logger LOGGER = LogManager.getLogger(TagServiceImpl.class);
 
     private final TagDao tagDao;
-    private final TagValidator tagValidator;
     private final PaginationValidator paginationValidator;
 
     @Autowired
-    public TagServiceImpl(TagDao tagDao, TagValidator tagValidator, PaginationValidator paginationValidator) {
+    public TagServiceImpl(TagDao tagDao, PaginationValidator paginationValidator) {
         this.tagDao = tagDao;
-        this.tagValidator = tagValidator;
         this.paginationValidator = paginationValidator;
     }
 
     @Override
     public Tag getByName(String name) throws ServiceException {
-        tagValidator.validateName(name);
         try {
             return tagDao.getByName(name);
         } catch (NoResultException ex) {
@@ -76,7 +72,6 @@ public class TagServiceImpl implements TagService {
         }
         searchCriteria.setSortType(sortType);
         searchCriteria.setSortBy(sortBy);
-        tagValidator.validateTagSearchCriteria(searchCriteria);
 
         try {
             return tagDao.getAllByPage(searchCriteria, page, size);
@@ -111,7 +106,6 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional(rollbackFor = ServiceException.class)
     public Tag create(Tag tag) throws ServiceException {
-        tagValidator.validate(tag);
         try {
             return tagDao.create(tag);
         } catch (PersistenceException | DataAccessException e) {

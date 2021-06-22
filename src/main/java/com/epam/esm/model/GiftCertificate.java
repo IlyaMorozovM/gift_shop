@@ -30,6 +30,7 @@ public class GiftCertificate extends BaseModel {
     @Column(name = "description")
     private String description;
 
+    @NotNull(message = "certificate must have price")
     @Min(value = 0, message = "price must be greater than 0 or = 0")
     @Column(name = "price")
     private double price;
@@ -40,6 +41,7 @@ public class GiftCertificate extends BaseModel {
     @Column(name = "last_update_date")
     private LocalDateTime lastUpdateDate;
 
+    @NotNull(message = "certificate must have duration")
     @Min(value = 1, message = "duration must be greater than 0")
     @Column(name = "duration")
     private int duration;
