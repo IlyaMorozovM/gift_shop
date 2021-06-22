@@ -23,8 +23,8 @@ public class TagDaoImpl implements TagDao {
     private static final String GET_ALL_TAGS = "SELECT t FROM Tag t ";
     private static final String GET_TAG_COUNT = "SELECT count(t.id) FROM Tag t ";
     private static final String GET_MOST_FREQUENT_TAG =
-            "SELECT tag.id, tag.name, count(tag.name) AS count FROM Orders " +
-                    "INNER JOIN OrderCertificate ON OrderCertificate.OrderId = Orders.id " +
+            "SELECT tag.id, tag.name, count(tag.name) AS count FROM orders " +
+                    "INNER JOIN OrderCertificate ON OrderCertificate.OrderId = orders.id " +
                     "INNER JOIN gift_certificate ON certificateId = gift_certificate.id " +
                     "INNER JOIN certificate_tag_m2m ON certificate_tag_m2m.certificate_id = gift_certificate.id " +
                     "INNER JOIN tag ON certificate_tag_m2m.tag_id = tag.id " +

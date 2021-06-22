@@ -64,7 +64,7 @@ public class OrderDaoImpl implements OrderDao {
         String query = GET_ORDER_BY_USER_ID +
                 "order by " + searchCriteria.getSortBy() + " " + searchCriteria.getSortType();
         TypedQuery<Order> typedQuery = entityManager.createQuery(query, Order.class);
-        typedQuery.setParameter("userId", id);
+        typedQuery.setParameter("userId", (long)id);
         typedQuery.setFirstResult((page - 1) * size);
         typedQuery.setMaxResults(size);
 

@@ -3,6 +3,9 @@ package com.epam.esm.model;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,15 +19,23 @@ public class User extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull(message = "user must have login")
+    @NotEmpty(message = "login must be not empty")
     @Column(name = "login")
     private String login;
 
+    @NotNull(message = "user must have password")
+    @NotEmpty(message = "password must be not empty")
     @Column(name = "password")
     private String password;
 
+    @NotNull(message = "user must have name")
+    @NotEmpty(message = "name must be not empty")
     @Column(name = "name")
     private String name;
 
+    @NotNull(message = "user must have age")
+    @Min(value = 1, message = "age must be greater than 0")
     @Column(name = "age")
     private int age;
 

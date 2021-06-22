@@ -35,7 +35,7 @@ public class PersistenceManagerImpl<T extends BaseModel> implements PersistenceM
     public T getModelByName(String query, String name) {
         TypedQuery<T> typedQuery = entityManager.createQuery(query, type);
         typedQuery.setParameter("name", name);
-        return typedQuery.getSingleResult();
+        return typedQuery.getResultList().get(0);
     }
 
     @Override
