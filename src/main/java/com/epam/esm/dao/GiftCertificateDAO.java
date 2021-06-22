@@ -2,7 +2,6 @@ package com.epam.esm.dao;
 
 import com.epam.esm.dao.request.CertificateSearchCriteria;
 import com.epam.esm.model.GiftCertificate;
-import com.epam.esm.service.exception.ServiceException;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -34,7 +33,7 @@ public interface GiftCertificateDAO {
      * @param certificateId certificate id.
      * @return {@code GiftCertificate}.
      */
-    GiftCertificate getById(int certificateId);
+    GiftCertificate getById(long certificateId);
 
     /**
      * Retrieves certain number of {@code GiftCertificate} from data source.
@@ -69,7 +68,7 @@ public interface GiftCertificateDAO {
      *
      * @param certificateId  id of a {@code GiftCertificate} which to delete from data source.
      */
-    void delete(int certificateId);
+    void delete(long certificateId);
 
     /**
      * Updates {@code GiftCertificate} in data source.

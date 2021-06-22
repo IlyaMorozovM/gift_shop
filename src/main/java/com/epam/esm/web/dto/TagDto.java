@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class TagDto extends RepresentationModel<TagDto> {
 
-    private int id;
+    private long id;
     private String name;
 
     public static List<TagDto> of(List<Tag> tags) {
@@ -23,11 +23,11 @@ public class TagDto extends RepresentationModel<TagDto> {
         return tagDto;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

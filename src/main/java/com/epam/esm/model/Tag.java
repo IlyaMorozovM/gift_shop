@@ -1,6 +1,5 @@
 package com.epam.esm.model;
 
-import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class Tag extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @NotNull(message = "tag must have name")
     @NotEmpty(message = "name must be not empty")
@@ -40,11 +39,11 @@ public class Tag extends BaseModel {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

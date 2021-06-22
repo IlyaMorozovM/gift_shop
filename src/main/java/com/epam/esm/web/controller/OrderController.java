@@ -58,7 +58,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<OrderDto> getById(@PathVariable @Min(1) int id) throws ServiceException {
+    public EntityModel<OrderDto> getById(@PathVariable long id) throws ServiceException {
         return modelAssembler.toModel(OrderDto.of(orderService.getById(id)));
     }
 

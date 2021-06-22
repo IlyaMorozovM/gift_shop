@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class UserDto extends RepresentationModel<UserDto> {
 
-    private int id;
+    private long id;
     private String login;
     private String name;
     private int age;
@@ -35,11 +35,11 @@ public class UserDto extends RepresentationModel<UserDto> {
         return userDto;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -56,7 +56,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public Tag getById(int tagId) {
+    public Tag getById(long tagId) {
         return persistenceManager.getModelById(tagId);
     }
 
@@ -84,7 +84,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public void deleteById(int tagId) {
+    public void deleteById(long tagId) {
         Tag tag = persistenceManager.getModelById(tagId);
         if (tag == null) {
             throw new NoResultException("Failed to find tag to delete by id: " + tagId);

@@ -37,7 +37,7 @@ public interface UserService {
      * @throws ServiceException when failed to get {@code User}.
      * @return {@code User}.
      */
-    User getById(int userId) throws ServiceException;
+    User getById(long userId) throws ServiceException;
 
     /**
      * Retrieves {@code User} from persistence layer.

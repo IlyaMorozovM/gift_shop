@@ -58,7 +58,7 @@ public class TagController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<TagDto> getById(@PathVariable @Min(1) int id) throws ServiceException {
+    public EntityModel<TagDto> getById(@PathVariable long id) throws ServiceException {
         return modelAssembler.toModel(TagDto.of(tagService.getById(id)));
     }
 

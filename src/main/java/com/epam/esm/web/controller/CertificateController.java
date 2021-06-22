@@ -59,7 +59,7 @@ public class CertificateController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<GiftCertificateDto> getById(@PathVariable @Min(1) int id) throws ServiceException {
+    public EntityModel<GiftCertificateDto> getById(@PathVariable long id) throws ServiceException {
         return modelAssembler.toModel(GiftCertificateDto.of(giftCertificateService.getById(id)));
     }
 

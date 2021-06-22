@@ -58,7 +58,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public GiftCertificate getById(int certificateId) throws ServiceException {
+    public GiftCertificate getById(long certificateId) throws ServiceException {
         certificateValidator.validateId(certificateId);
         try {
             GiftCertificate giftCertificate = giftCertificateDao.getById(certificateId);
@@ -137,7 +137,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public void delete(int certificateId) throws ServiceException {
+    public void delete(long certificateId) throws ServiceException {
         GiftCertificate giftCertificate = getById(certificateId);
         if (giftCertificate == null) {
             LOGGER.error("Failed to delete certificate: certificate not found");

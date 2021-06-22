@@ -49,7 +49,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag getById(int tagId) throws ServiceException {
+    public Tag getById(long tagId) throws ServiceException {
         try {
             Tag tag = tagDao.getById(tagId);
             if (tag == null) {
@@ -122,7 +122,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public void delete(int tagId) throws ServiceException {
+    public void delete(long tagId) throws ServiceException {
         try {
             tagDao.deleteById(tagId);
         } catch (DataAccessException | NoResultException | IllegalArgumentException e) {

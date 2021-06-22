@@ -5,7 +5,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class OrderDto extends RepresentationModel<OrderDto> {
 
-    private int id;
+    private long id;
     private double totalCost;
     private LocalDateTime createDate;
     private Set<EntityModel<GiftCertificateDto>> giftCertificateList = new HashSet<>();
@@ -36,11 +35,11 @@ public class OrderDto extends RepresentationModel<OrderDto> {
         return orders.stream().map(OrderDto::of).collect(Collectors.toList());
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

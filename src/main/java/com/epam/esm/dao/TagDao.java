@@ -32,7 +32,7 @@ public interface TagDao {
      * @param tagId tag id.
      * @return {@code Tag}.
      */
-    Tag getById(int tagId);
+    Tag getById(long tagId);
 
     /**
      * Retrieves certain number of {@code Tag} from data source
@@ -75,5 +75,5 @@ public interface TagDao {
      *
      * @param tagId id of a {@code Tag} which to delete from data source.
      */
-    void deleteById(int tagId);
+    void deleteById(long tagId);
 }

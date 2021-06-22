@@ -85,7 +85,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order getById(int orderId) {
+    public Order getById(long orderId) {
         return persistenceManager.getModelById(orderId);
     }
 
@@ -106,7 +106,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void delete(int orderId) {
+    public void delete(long orderId) {
         Order order = persistenceManager.getModelById(orderId);
         if (order == null) {
             throw new NoResultException("Failed to find order to delete by id: " + orderId);

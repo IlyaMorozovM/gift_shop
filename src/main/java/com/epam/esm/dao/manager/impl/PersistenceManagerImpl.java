@@ -39,7 +39,7 @@ public class PersistenceManagerImpl<T extends BaseModel> implements PersistenceM
     }
 
     @Override
-    public T getModelById(int modelId) {
+    public T getModelById(long modelId) {
         return entityManager.find(type, modelId);
     }
 
@@ -79,7 +79,7 @@ public class PersistenceManagerImpl<T extends BaseModel> implements PersistenceM
     }
 
     @Override
-    public void delete(int modelId) {
+    public void delete(long modelId) {
         T model = getModelById(modelId);
         if (model == null) {
             throw new NoResultException("Failed to find model to delete by id: " + modelId);

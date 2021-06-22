@@ -1,6 +1,5 @@
 package com.epam.esm.model;
 
-import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
@@ -28,7 +27,7 @@ public class Order extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Min(value = 0, message = "cost must be greater than 0 or = 0")
     @Column(name = "Cost")
@@ -62,11 +61,11 @@ public class Order extends BaseModel {
         this.giftCertificateList = giftCertificateList;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

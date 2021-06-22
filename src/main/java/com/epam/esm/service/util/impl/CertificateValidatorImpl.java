@@ -29,7 +29,7 @@ public class CertificateValidatorImpl implements CertificateValidator {
     }
 
     @Override
-    public void validateId(int id) throws ServiceException {
+    public void validateId(long id) throws ServiceException {
         if (id < 0) {
             throw new ServiceException("Failed to validate: certificate id is negative",
                     ErrorCodeEnum.CERTIFICATE_VALIDATION_ERROR);

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(int userId) throws ServiceException {
+    public User getById(long userId) throws ServiceException {
         userValidator.validateId(userId);
         try {
             User user = userDao.getById(userId);

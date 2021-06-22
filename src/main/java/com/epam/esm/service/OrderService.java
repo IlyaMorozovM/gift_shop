@@ -4,7 +4,6 @@ import com.epam.esm.dao.request.OrderSearchCriteria;
 import com.epam.esm.dao.sort.SortBy;
 import com.epam.esm.dao.sort.SortType;
 import com.epam.esm.model.Order;
-import com.epam.esm.model.Tag;
 import com.epam.esm.service.exception.ServiceException;
 
 import java.util.List;
@@ -42,7 +41,7 @@ public interface OrderService {
      * @throws ServiceException when failed to get {@code Order}.
      * @return {@code Order}.
      */
-    Order getById(int orderId) throws ServiceException;
+    Order getById(long orderId) throws ServiceException;
 
     /**
      * Retrieves {@code Order} from persistence layer.
@@ -82,5 +81,5 @@ public interface OrderService {
      * @param orderId id of {@code Order} which to delete from persistence layer.
      * @throws ServiceException when failed to delete {@code Order}.
      */
-    void delete(int orderId) throws ServiceException;
+    void delete(long orderId) throws ServiceException;
 }

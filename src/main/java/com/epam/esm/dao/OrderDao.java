@@ -2,7 +2,6 @@ package com.epam.esm.dao;
 
 import com.epam.esm.dao.request.OrderSearchCriteria;
 import com.epam.esm.model.Order;
-import com.epam.esm.model.Tag;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public interface OrderDao {
      * @param orderId order id.
      * @return {@code Order}.
      */
-    Order getById(int orderId);
+    Order getById(long orderId);
 
     /**
      * Retrieves certain number of {@code Order} from data source.
@@ -71,5 +70,5 @@ public interface OrderDao {
      *
      * @param orderId id of a {@code Order} which to delete from data source.
      */
-    void delete(int orderId);
+    void delete(long orderId);
 }

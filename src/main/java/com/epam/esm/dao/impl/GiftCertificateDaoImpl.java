@@ -8,8 +8,6 @@ import com.epam.esm.model.Tag;
 import com.google.common.base.CaseFormat;
 import com.epam.esm.model.GiftCertificate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -57,7 +55,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     }
 
     @Override
-    public GiftCertificate getById(int certificateId) {
+    public GiftCertificate getById(long certificateId) {
         return persistenceManager.getModelById(certificateId);
     }
 
@@ -137,7 +135,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
     }
 
     @Override
-    public void delete(int certificateId) {
+    public void delete(long certificateId) {
         GiftCertificate giftCertificate = persistenceManager.getModelById(certificateId);
         if (giftCertificate == null) {
             throw new NoResultException("Failed to find certificate to delete by id: " + certificateId);

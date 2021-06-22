@@ -32,7 +32,7 @@ public interface UserDao {
      * @param userId user userId.
      * @return {@code User}.
      */
-    User getById(int userId);
+    User getById(long userId);
 
     /**
      * Retrieves certain number of {@code User} from data source

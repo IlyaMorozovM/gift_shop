@@ -27,7 +27,7 @@ public class OrderValidatorImpl implements OrderValidator {
     }
 
     @Override
-    public void validateId(int id) throws ServiceException {
+    public void validateId(long id) throws ServiceException {
         if (id < 0) {
             throw new ServiceException("Failed to validate: order id is negative",
                     ErrorCodeEnum.ORDER_VALIDATION_ERROR);
@@ -42,7 +42,7 @@ public class OrderValidatorImpl implements OrderValidator {
         }
     }
 
-    private void validateUserId(int userId) throws ServiceException {
+    private void validateUserId(long userId) throws ServiceException {
         if (userId <= 0) {
             throw new ServiceException("Failed to validate: user id is negative",
                     ErrorCodeEnum.ORDER_VALIDATION_ERROR);

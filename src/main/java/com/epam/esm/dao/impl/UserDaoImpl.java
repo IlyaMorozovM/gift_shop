@@ -40,7 +40,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getById(int userId) {
+    public User getById(long userId) {
         User user = persistenceManager.getModelById(userId);
         if (user == null) {
             throw new NoResultException();

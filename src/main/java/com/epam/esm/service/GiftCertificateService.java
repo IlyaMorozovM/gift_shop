@@ -37,7 +37,7 @@ public interface GiftCertificateService {
      * @throws ServiceException when failed to get {@code GiftCertificate}.
      * @return {@code GiftCertificate}.
      */
-    GiftCertificate getById(int certificateId) throws ServiceException;
+    GiftCertificate getById(long certificateId) throws ServiceException;
 
     /**
      * Retrieves {@code GiftCertificate} from persistence layer.
@@ -85,7 +85,7 @@ public interface GiftCertificateService {
      * @param certificateId id of a {@code GiftCertificate} which to delete from persistence layer.
      * @throws ServiceException when failed to delete {@code GiftCertificate} from persistence layer.
      */
-    void delete(int certificateId) throws ServiceException;
+    void delete(long certificateId) throws ServiceException;
 
     /**
      * Updates {@code GiftCertificate} in persistence layer.

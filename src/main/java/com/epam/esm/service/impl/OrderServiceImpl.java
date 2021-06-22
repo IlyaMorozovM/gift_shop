@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getById(int orderId) throws ServiceException {
+    public Order getById(long orderId) throws ServiceException {
         orderValidator.validateId(orderId);
 
         try {
@@ -156,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
-    public void delete(int orderId) throws ServiceException {
+    public void delete(long orderId) throws ServiceException {
         orderValidator.validateId(orderId);
         try {
             orderDao.delete(orderId);

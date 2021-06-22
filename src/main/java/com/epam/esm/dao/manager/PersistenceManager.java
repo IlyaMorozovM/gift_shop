@@ -41,7 +41,7 @@ public interface PersistenceManager<T extends BaseModel> {
      * @param modelId BaseModel id.
      * @return {@code BaseModel}.
      */
-    T getModelById(int modelId);
+    T getModelById(long modelId);
 
     /**
      * Retrieves all {@code BaseModel} from data source
@@ -87,7 +87,7 @@ public interface PersistenceManager<T extends BaseModel> {
      *
      * @param modelId id of {@code BaseModel} which to deleted from data source.
      */
-    void delete(int modelId);
+    void delete(long modelId);
 
     /**
      * Updates {@code BaseModel} in data source.

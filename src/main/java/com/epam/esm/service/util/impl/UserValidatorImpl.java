@@ -24,7 +24,7 @@ public class UserValidatorImpl implements UserValidator {
     }
 
     @Override
-    public void validateId(int id) throws ServiceException {
+    public void validateId(long id) throws ServiceException {
         if (id < 0) {
             throw new ServiceException("Failed to validate: id is negative",
                     ErrorCodeEnum.USER_VALIDATION_ERROR);
