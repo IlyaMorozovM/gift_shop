@@ -54,7 +54,6 @@ public class OrderServiceImpl implements OrderService {
         }
         searchCriteria.setSortType(sortType);
         searchCriteria.setSortBy(sortBy);
-        orderValidator.validateOrderSearchCriteria(searchCriteria);
 
         try {
             return orderDao.getByUserId(userId, searchCriteria, page, size);
@@ -67,8 +66,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getById(long orderId) throws ServiceException {
-        orderValidator.validateId(orderId);
-
         try {
             Order order = orderDao.getById(orderId);
             if (order == null) {
@@ -93,7 +90,6 @@ public class OrderServiceImpl implements OrderService {
         }
         searchCriteria.setSortType(sortType);
         searchCriteria.setSortBy(sortBy);
-        orderValidator.validateOrderSearchCriteria(searchCriteria);
 
         try {
             return orderDao.getAllByPage(searchCriteria, page, size);
@@ -145,7 +141,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(rollbackFor = ServiceException.class)
     public void delete(long orderId) throws ServiceException {
-        orderValidator.validateId(orderId);
         try {
             orderDao.delete(orderId);
         } catch (DataAccessException | NoResultException | IllegalArgumentException e) {

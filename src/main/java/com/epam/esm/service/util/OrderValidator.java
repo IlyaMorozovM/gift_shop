@@ -19,20 +19,4 @@ public interface OrderValidator {
      * @throws ServiceException if {@code Order} is incorrect.
      */
     void validate(Order order) throws ServiceException;
-
-    /**
-     * Validates id of {@code Order}.
-     *
-     * @param id id of {@code Order} to be validated.
-     * @throws ServiceException if id of {@code Order} is incorrect.
-     */
-    void validateId(long id) throws ServiceException;
-
-    /**
-     * Validates searchCriteria of {@code Order}.
-     *
-     * @param searchCriteria searchCriteria of {@code Order} to be validated.
-     * @throws ServiceException if searchCriteria of {@code Order} is incorrect.
-     */
-    void validateOrderSearchCriteria(OrderSearchCriteria searchCriteria) throws ServiceException;
 }
