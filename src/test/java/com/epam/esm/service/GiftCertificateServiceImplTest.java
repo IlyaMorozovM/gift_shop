@@ -10,7 +10,6 @@ import com.epam.esm.model.Tag;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.impl.GiftCertificateServiceImpl;
 import com.epam.esm.service.impl.TagServiceImpl;
-import com.epam.esm.service.util.impl.PaginationValidatorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +32,7 @@ class GiftCertificateServiceImplTest {
         size = 10;
         giftCertificateDAO = Mockito.mock(GiftCertificateDaoImpl.class);
         TagService tagService = Mockito.mock(TagServiceImpl.class);
-        giftCertificateService = new GiftCertificateServiceImpl(giftCertificateDAO,
-                new PaginationValidatorImpl(), tagService);
+        giftCertificateService = new GiftCertificateServiceImpl(giftCertificateDAO, tagService);
     }
 
     private List<GiftCertificate> initCertificates() {

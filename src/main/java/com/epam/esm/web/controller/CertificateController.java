@@ -6,7 +6,6 @@ import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.service.GiftCertificateService;
 import com.epam.esm.dao.request.CertificateSearchCriteria;
 import com.epam.esm.service.exception.ServiceException;
-import com.epam.esm.service.util.PaginationValidator;
 import com.epam.esm.web.dto.GiftCertificateDto;
 import com.epam.esm.web.hateoas.CertificateLinkBuilder;
 import com.epam.esm.web.hateoas.ModelAssembler;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Validated
@@ -35,11 +35,10 @@ public class CertificateController {
 
     @Autowired
     public CertificateController(
-            GiftCertificateService giftCertificateService, ModelAssembler<GiftCertificateDto> modelAssembler,
-            PaginationValidator paginationValidator) {
+            GiftCertificateService giftCertificateService, ModelAssembler<GiftCertificateDto> modelAssembler) {
         this.giftCertificateService = giftCertificateService;
         this.modelAssembler = modelAssembler;
-        this.paginationConfigurer = new PaginationConfigurerImpl<>(modelAssembler, paginationValidator);
+        this.paginationConfigurer = new PaginationConfigurerImpl<>(modelAssembler);
     }
 
     @PostConstruct
@@ -50,7 +49,7 @@ public class CertificateController {
     @GetMapping
     public CollectionModel<EntityModel<GiftCertificateDto>> get(
             @RequestBody(required = false) CertificateSearchCriteria request,
-            @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
+            @RequestParam @Min(1) int page, @RequestParam @Min(1) @Max(100) int size,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
         paginationConfigurer.configure(page, size, giftCertificateService.getLastPage(size), sortType, sortBy);
 

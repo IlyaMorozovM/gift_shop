@@ -14,7 +14,6 @@ import com.epam.esm.service.impl.OrderServiceImpl;
 import com.epam.esm.service.impl.TagServiceImpl;
 import com.epam.esm.service.impl.UserServiceImpl;
 import com.epam.esm.service.util.impl.OrderValidatorImpl;
-import com.epam.esm.service.util.impl.PaginationValidatorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,8 +61,7 @@ class OrderServiceImplTest {
         GiftCertificateService certificateService = Mockito.mock(GiftCertificateServiceImpl.class);
         TagService tagService = Mockito.mock(TagServiceImpl.class);
         orderService = new OrderServiceImpl(orderDao,
-                new OrderValidatorImpl(), new PaginationValidatorImpl(), userService, certificateService,
-                tagService);
+                new OrderValidatorImpl(), userService, certificateService);
     }
 
     @Test

@@ -6,7 +6,6 @@ import com.epam.esm.model.Tag;
 import com.epam.esm.service.TagService;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.dao.request.TagSearchCriteria;
-import com.epam.esm.service.util.PaginationValidator;
 import com.epam.esm.web.dto.TagDto;
 import com.epam.esm.web.hateoas.ModelAssembler;
 import com.epam.esm.web.hateoas.TagLinkBuilder;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Validated
@@ -34,11 +34,10 @@ public class TagController {
     private final PaginationConfigurer<TagDto> paginationConfigurer;
 
     @Autowired
-    public TagController(TagService tagService, ModelAssembler<TagDto> modelAssembler,
-                         PaginationValidator paginationValidator) {
+    public TagController(TagService tagService, ModelAssembler<TagDto> modelAssembler) {
         this.tagService = tagService;
         this.modelAssembler = modelAssembler;
-        this.paginationConfigurer = new PaginationConfigurerImpl<>(modelAssembler, paginationValidator);
+        this.paginationConfigurer = new PaginationConfigurerImpl<>(modelAssembler);
     }
 
     @PostConstruct
@@ -49,7 +48,7 @@ public class TagController {
     @GetMapping
     public CollectionModel<EntityModel<TagDto>> get(
             @RequestBody(required = false) TagSearchCriteria requestBody,
-            @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
+            @RequestParam @Min(1) int page, @RequestParam @Min(1) @Max(100) int size,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
         paginationConfigurer.configure(page, size, tagService.getLastPage(size), sortType, sortBy);
 

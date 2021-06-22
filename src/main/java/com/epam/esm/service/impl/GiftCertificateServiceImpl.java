@@ -10,7 +10,6 @@ import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.service.GiftCertificateService;
 import com.epam.esm.dao.request.CertificateSearchCriteria;
 import com.epam.esm.service.exception.ServiceException;
-import com.epam.esm.service.util.PaginationValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +29,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     private static final Logger LOGGER = LogManager.getLogger(GiftCertificateServiceImpl.class);
 
     private final GiftCertificateDAO giftCertificateDao;
-    private final PaginationValidator paginationValidator;
     private final TagService tagService;
 
     @Autowired
-    public GiftCertificateServiceImpl(GiftCertificateDAO giftCertificateDao,
-                                      PaginationValidator paginationValidator, TagService tagService) {
+    public GiftCertificateServiceImpl(GiftCertificateDAO giftCertificateDao, TagService tagService) {
         this.giftCertificateDao = giftCertificateDao;
-        this.paginationValidator = paginationValidator;
         this.tagService = tagService;
     }
 
@@ -73,8 +69,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     public List<GiftCertificate> getByPage(CertificateSearchCriteria searchCriteria, int page, int size,
                                            SortType sortType, SortBy sortBy) throws ServiceException {
-        paginationValidator.validatePagination(page, size);
-
         if (searchCriteria == null) {
             searchCriteria = CertificateSearchCriteria.getDefaultCertificateRequestBody();
         }
@@ -86,7 +80,6 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     public int getLastPage(int size) throws ServiceException {
-        paginationValidator.validateSize(size);
         try {
             return giftCertificateDao.getLastPage(size);
         } catch (DataAccessException | PersistenceException e) {

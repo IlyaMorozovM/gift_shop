@@ -5,7 +5,6 @@ import com.epam.esm.dao.impl.TagDaoImpl;
 import com.epam.esm.model.Tag;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.impl.TagServiceImpl;
-import com.epam.esm.service.util.impl.PaginationValidatorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ class TagServiceImplTest {
     @BeforeEach
     public void init() {
         tagDao = Mockito.mock(TagDaoImpl.class);
-        tagService = new TagServiceImpl(tagDao, new PaginationValidatorImpl());
+        tagService = new TagServiceImpl(tagDao);
     }
 
     @Test

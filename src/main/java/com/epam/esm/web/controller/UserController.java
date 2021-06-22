@@ -7,7 +7,6 @@ import com.epam.esm.dao.sort.SortType;
 import com.epam.esm.service.OrderService;
 import com.epam.esm.service.UserService;
 import com.epam.esm.service.exception.ServiceException;
-import com.epam.esm.service.util.PaginationValidator;
 import com.epam.esm.web.dto.OrderDto;
 import com.epam.esm.web.dto.UserDto;
 import com.epam.esm.web.hateoas.ModelAssembler;
@@ -22,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 @Validated
@@ -37,13 +37,12 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, ModelAssembler<UserDto> modelAssembler,
-                          ModelAssembler<OrderDto> orderModelAssembler, OrderService orderService,
-                          PaginationValidator paginationValidator) {
+                          ModelAssembler<OrderDto> orderModelAssembler, OrderService orderService) {
         this.userService = userService;
         this.modelAssembler = modelAssembler;
         this.orderModelAssembler = orderModelAssembler;
         this.orderService = orderService;
-        this.paginationConfigurer = new PaginationConfigurerImpl<>(modelAssembler, paginationValidator);
+        this.paginationConfigurer = new PaginationConfigurerImpl<>(modelAssembler);
     }
 
     @PostConstruct
@@ -55,7 +54,7 @@ public class UserController {
     @GetMapping
     public CollectionModel<EntityModel<UserDto>> get(
             @RequestBody(required = false) UserSearchCriteria request,
-            @RequestParam @Min(1) int page, @RequestParam @Min(1) int size,
+            @RequestParam @Min(1) int page, @RequestParam @Min(1) @Max(100) int size,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
         paginationConfigurer.configure(page, size, userService.getLastPage(size), sortType, sortBy);
 

@@ -6,7 +6,6 @@ import com.epam.esm.dao.request.UserSearchCriteria;
 import com.epam.esm.model.User;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.impl.UserServiceImpl;
-import com.epam.esm.service.util.impl.PaginationValidatorImpl;
 import com.epam.esm.service.util.impl.UserValidatorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +47,7 @@ class UserServiceImplTest {
         userDao = Mockito.mock(UserDaoImpl.class);
 
         userService = new UserServiceImpl(userDao,
-                new UserValidatorImpl(), new PaginationValidatorImpl());
+                new UserValidatorImpl());
     }
 
     @Test

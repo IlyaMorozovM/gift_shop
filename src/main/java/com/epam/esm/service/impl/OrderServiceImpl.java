@@ -9,12 +9,10 @@ import com.epam.esm.model.Order;
 import com.epam.esm.model.User;
 import com.epam.esm.service.GiftCertificateService;
 import com.epam.esm.service.OrderService;
-import com.epam.esm.service.TagService;
 import com.epam.esm.service.UserService;
 import com.epam.esm.service.exception.ErrorCodeEnum;
 import com.epam.esm.service.exception.ServiceException;
 import com.epam.esm.service.util.OrderValidator;
-import com.epam.esm.service.util.PaginationValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,29 +33,22 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderDao orderDao;
     private final OrderValidator orderValidator;
-    private final PaginationValidator paginationValidator;
     private final UserService userService;
     private final GiftCertificateService giftCertificateService;
-    private final TagService tagService;
 
     @Autowired
-    public OrderServiceImpl(OrderDao orderDao, OrderValidator orderValidator, PaginationValidator paginationValidator,
-                            UserService userService, GiftCertificateService giftCertificateService,
-                            TagService tagService) {
+    public OrderServiceImpl(OrderDao orderDao, OrderValidator orderValidator, UserService userService,
+                            GiftCertificateService giftCertificateService) {
         this.orderDao = orderDao;
         this.orderValidator = orderValidator;
-        this.paginationValidator = paginationValidator;
         this.userService = userService;
         this.giftCertificateService = giftCertificateService;
-        this.tagService = tagService;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<Order> getByUserId(int userId, OrderSearchCriteria searchCriteria, int page, int size,
                                    SortType sortType, SortBy sortBy) throws ServiceException {
-        paginationValidator.validatePagination(page, size);
-
         if (searchCriteria == null) {
             searchCriteria = OrderSearchCriteria.getDefaultOrderRequestBody();
         }
@@ -97,8 +88,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAllByPage(OrderSearchCriteria searchCriteria, int page, int size,
                                     SortType sortType, SortBy sortBy) throws ServiceException {
-        paginationValidator.validatePagination(page, size);
-
         if (searchCriteria == null) {
             searchCriteria = OrderSearchCriteria.getDefaultOrderRequestBody();
         }
@@ -116,7 +105,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int getLastPage(int size) throws ServiceException {
-        paginationValidator.validateSize(size);
         try {
             return orderDao.getLastPage(size);
         } catch (DataAccessException | PersistenceException e) {

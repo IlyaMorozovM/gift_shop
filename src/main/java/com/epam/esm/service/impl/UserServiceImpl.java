@@ -8,7 +8,6 @@ import com.epam.esm.service.exception.ErrorCodeEnum;
 import com.epam.esm.model.User;
 import com.epam.esm.service.UserService;
 import com.epam.esm.service.exception.ServiceException;
-import com.epam.esm.service.util.PaginationValidator;
 import com.epam.esm.service.util.UserValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -27,13 +26,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final UserValidator userValidator;
-    private final PaginationValidator paginationValidator;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, UserValidator userValidator, PaginationValidator paginationValidator) {
+    public UserServiceImpl(UserDao userDao, UserValidator userValidator) {
         this.userDao = userDao;
         this.userValidator = userValidator;
-        this.paginationValidator = paginationValidator;
     }
 
     @Override
@@ -68,8 +65,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllByPage(UserSearchCriteria searchCriteria, int page, int size,
                                    SortType sortType, SortBy sortBy) throws ServiceException {
-        paginationValidator.validatePagination(page, size);
-
         if (searchCriteria == null) {
             searchCriteria = UserSearchCriteria.getDefaultUserRequestBody();
         }
@@ -87,7 +82,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int getLastPage(int size) throws ServiceException {
-        paginationValidator.validateSize(size);
         try {
             return userDao.getLastPage(size);
         } catch (DataAccessException | PersistenceException e) {
