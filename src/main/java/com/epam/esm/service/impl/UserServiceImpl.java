@@ -8,7 +8,6 @@ import com.epam.esm.service.exception.ErrorCodeEnum;
 import com.epam.esm.model.User;
 import com.epam.esm.service.UserService;
 import com.epam.esm.service.exception.ServiceException;
-import com.epam.esm.service.util.UserValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +24,14 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
     private final UserDao userDao;
-    private final UserValidator userValidator;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, UserValidator userValidator) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
-        this.userValidator = userValidator;
     }
 
     @Override
     public User getByLogin(String login) throws ServiceException {
-        userValidator.validateLogin(login);
         try {
             return userDao.getByLogin(login);
         } catch (NoResultException e) {
@@ -47,7 +43,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(long userId) throws ServiceException {
-        userValidator.validateId(userId);
         try {
             User user = userDao.getById(userId);
             if (user == null) {
@@ -70,7 +65,6 @@ public class UserServiceImpl implements UserService {
         }
         searchCriteria.setSortType(sortType);
         searchCriteria.setSortBy(sortBy);
-        userValidator.validateUserSearchCriteria(searchCriteria);
 
         try {
             return userDao.getAllByPage(searchCriteria, page, size);

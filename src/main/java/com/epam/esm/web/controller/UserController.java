@@ -63,14 +63,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public EntityModel<UserDto> getById(@PathVariable long id) throws ServiceException {
+    public EntityModel<UserDto> getById(@PathVariable @Min(1) long id) throws ServiceException {
         return modelAssembler.toModel(UserDto.of(userService.getById(id)));
     }
 
     @GetMapping("/{id}/orders")
     public CollectionModel<EntityModel<OrderDto>> getOrders(
             @RequestBody(required = false) OrderSearchCriteria requestBody,
-            @RequestParam int page, @RequestParam int size, @PathVariable int id,
+            @RequestParam @Min(1) int page, @RequestParam @Min(1) @Max(100) int size, @PathVariable @Min(1) int id,
             @RequestParam SortType sortType, @RequestParam SortBy sortBy) throws ServiceException {
         return orderModelAssembler.toCollectionModel(
                 OrderDto.of(orderService.getByUserId(id, requestBody, page, size, sortType, sortBy)));
