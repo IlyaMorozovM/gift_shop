@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@EntityScan(basePackages = "com.epam.esm.model")
-@ComponentScan(basePackages = "com.epam.esm.dao.manager.impl")
 public class GiftCertificateDaoImpl implements GiftCertificateDAO {
 
     @PersistenceContext
