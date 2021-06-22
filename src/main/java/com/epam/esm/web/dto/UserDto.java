@@ -13,6 +13,8 @@ public class UserDto extends RepresentationModel<UserDto> {
 
     private int id;
     private String login;
+    private String name;
+    private int age;
     private Set<EntityModel<OrderDto>> orders;
 
     public static List<UserDto> of(List<User> users) {
@@ -23,6 +25,8 @@ public class UserDto extends RepresentationModel<UserDto> {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setLogin(user.getLogin());
+        userDto.setName(user.getName());
+        userDto.setAge(user.getAge());
         Set<EntityModel<OrderDto>> orderDto = new HashSet<>();
         user.getOrders().forEach(o ->
                 orderDto.add(EntityModel.of(OrderDto.of(o))));
@@ -45,6 +49,22 @@ public class UserDto extends RepresentationModel<UserDto> {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Set<EntityModel<OrderDto>> getOrders() {
