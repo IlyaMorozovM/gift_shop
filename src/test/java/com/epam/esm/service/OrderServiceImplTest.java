@@ -34,7 +34,7 @@ class OrderServiceImplTest {
         Order order = new Order();
         order.setId(1);
         order.setTotalCost(10.10);
-        order.setUser(new User(1, "login", "password"));
+        order.setUser(new User(1, "login", "password", "Oleg", 20));
         GiftCertificate certificate = new GiftCertificate();
         certificate.setId(1);
         certificate.setName("certificate");
@@ -48,7 +48,7 @@ class OrderServiceImplTest {
         Order order = new Order();
         order.setId(id);
         order.setTotalCost(10.10);
-        order.setUser(new User(1, "login", "password"));
+        order.setUser(new User(1, "login", "password", "Oleg", 20));
 
         return order;
     }

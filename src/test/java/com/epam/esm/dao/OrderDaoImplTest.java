@@ -29,7 +29,7 @@ class OrderDaoImplTest {
         Order order = new Order();
         order.setId(1);
         order.setTotalCost(10.10);
-        order.setUser(new User(1, "login", "password"));
+        order.setUser(new User(1, "login", "password", "Oleg", 20));
 
         return order;
     }
@@ -38,7 +38,7 @@ class OrderDaoImplTest {
         Order order = new Order();
         order.setId(id);
         order.setTotalCost(10.10);
-        order.setUser(new User(1, "login", "password"));
+        order.setUser(new User(1, "login", "password", "Oleg", 20));
 
         return order;
     }
