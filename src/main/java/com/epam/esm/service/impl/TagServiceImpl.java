@@ -102,7 +102,10 @@ public class TagServiceImpl implements TagService {
     public Tag create(Tag tag) throws ServiceException {
         try {
             return tagDao.create(tag);
-        } catch (PersistenceException | DataAccessException e) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Failed to add tag: tag already exists");
+            throw new ServiceException("Failed to add tag: tag already exists", ErrorCodeEnum.FAILED_TO_ADD_TAG);
+        } catch (PersistenceException e) {
             LOGGER.error("Failed to add tag");
             throw new ServiceException("Failed to add tag", ErrorCodeEnum.FAILED_TO_ADD_TAG);
         }

@@ -29,6 +29,7 @@ public class Order extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull(message = "order must have cost")
     @Min(value = 0, message = "cost must be greater than 0 or = 0")
     @Column(name = "Cost")
     private double totalCost;
