@@ -15,6 +15,7 @@ public class OrderDto extends RepresentationModel<OrderDto> {
 
     private long id;
     private double totalCost;
+    private long userId;
     private LocalDateTime createDate;
     private Set<EntityModel<GiftCertificateDto>> giftCertificateList = new HashSet<>();
 
@@ -22,6 +23,7 @@ public class OrderDto extends RepresentationModel<OrderDto> {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(order.getId());
         orderDto.setTotalCost(order.getTotalCost());
+        orderDto.setUserId(order.getUser().getId());
         orderDto.setCreateDate(order.getCreateDate());
         Set<EntityModel<GiftCertificateDto>> giftCertificateDto = new HashSet<>();
         order.getGiftCertificateList().forEach(g ->
@@ -49,6 +51,14 @@ public class OrderDto extends RepresentationModel<OrderDto> {
 
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long user) {
+        this.userId = user;
     }
 
     public LocalDateTime getCreateDate() {
