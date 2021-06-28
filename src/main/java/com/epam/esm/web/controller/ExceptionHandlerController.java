@@ -24,15 +24,15 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<ServiceException> handleConstraintViolationException(ConstraintViolationException e) {
         ServiceException myException = new ServiceException("not valid due to validation error: " + e.getMessage(),
                 ErrorCodeEnum.INVALID_INPUT);
-        return new ResponseEntity<>(myException, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(myException, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<ServiceException> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         String message = e.getMessage();
         String splitString = "default message";
@@ -41,7 +41,7 @@ public class ExceptionHandlerController {
 
         ServiceException myException = new ServiceException("not valid due to validation error: " + myMessage,
                 ErrorCodeEnum.INVALID_INPUT);
-        return new ResponseEntity<>(myException, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(myException, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
