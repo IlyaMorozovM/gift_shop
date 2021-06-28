@@ -58,8 +58,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderDao.getByUserId(userId, searchCriteria, page, size);
         } catch (DataAccessException e) {
-            LOGGER.error(String.format("Failed to get order by user id = {%s}", userId));
-            throw new ServiceException(String.format("Failed to get order by user id = {%s}", userId),
+            LOGGER.error(String.format("Failed to get order by user id = %s", userId));
+            throw new ServiceException(String.format("Failed to get order by user id = %s", userId),
                     ErrorCodeEnum.FAILED_TO_RETRIEVE_ORDER);
         }
     }
@@ -69,15 +69,15 @@ public class OrderServiceImpl implements OrderService {
         try {
             Order order = orderDao.getById(orderId);
             if (order == null) {
-                LOGGER.error(String.format("Failed to get order by user id = {%s}", orderId));
-                throw new ServiceException(String.format("Failed to get order by user id = {%s}", orderId),
+                LOGGER.error(String.format("Order with id = %s not found", orderId));
+                throw new ServiceException(String.format("Order with id = %s not found", orderId),
                         ErrorCodeEnum.FAILED_TO_RETRIEVE_ORDER);
             }
 
             return order;
         } catch (DataAccessException e) {
-            LOGGER.error(String.format("Failed to get order by user id = {%s}", orderId));
-            throw new ServiceException(String.format("Failed to get order by user id = {%s}", orderId),
+            LOGGER.error(String.format("Failed to get order by id = %s", orderId));
+            throw new ServiceException(String.format("Failed to get order by id = %s", orderId),
                     ErrorCodeEnum.FAILED_TO_RETRIEVE_ORDER);
         }
     }

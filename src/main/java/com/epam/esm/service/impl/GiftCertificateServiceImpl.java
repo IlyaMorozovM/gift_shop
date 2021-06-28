@@ -53,8 +53,8 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         try {
             GiftCertificate giftCertificate = giftCertificateDao.getById(certificateId);
             if (giftCertificate == null) {
-                LOGGER.error("Failed to get certificate by id = " + certificateId);
-                throw new ServiceException("Failed to get certificate by id = " + certificateId,
+                LOGGER.error("Certificate with id = " + certificateId + " not found");
+                throw new ServiceException("Certificate with id = " + certificateId + " not found",
                         ErrorCodeEnum.FAILED_TO_RETRIEVE_CERTIFICATE);
             }
 

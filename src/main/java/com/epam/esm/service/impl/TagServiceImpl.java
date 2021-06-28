@@ -46,8 +46,8 @@ public class TagServiceImpl implements TagService {
         try {
             Tag tag = tagDao.getById(tagId);
             if (tag == null) {
-                LOGGER.error("Failed to get tag by id = " + tagId);
-                throw new ServiceException("Failed to get tag by id = " + tagId,
+                LOGGER.error("Tag with id = " + tagId + " not found");
+                throw new ServiceException("Tag with id = " + tagId + " not found",
                         ErrorCodeEnum.FAILED_TO_RETRIEVE_TAG);
             }
 
