@@ -25,19 +25,23 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ServiceException> handleConstraintViolationException(ConstraintViolationException e) {
+        ServiceException myException = new ServiceException("not valid due to validation error: " + e.getMessage(),
+                ErrorCodeEnum.INVALID_INPUT);
+        return new ResponseEntity<>(myException, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<ServiceException> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         String message = e.getMessage();
         String splitString = "default message";
         int index = message.lastIndexOf(splitString);
         String myMessage = message.substring(index + splitString.length() + 2, message.length() - 3);
 
-        return new ResponseEntity<>("not valid due to validation error: " + myMessage, HttpStatus.BAD_REQUEST);
+        ServiceException myException = new ServiceException("not valid due to validation error: " + myMessage,
+                ErrorCodeEnum.INVALID_INPUT);
+        return new ResponseEntity<>(myException, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
