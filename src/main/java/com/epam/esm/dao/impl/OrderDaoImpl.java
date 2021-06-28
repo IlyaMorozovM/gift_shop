@@ -1,8 +1,8 @@
 package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.OrderDao;
+import com.epam.esm.dao.manager.impl.OrderManagerImpl;
 import com.epam.esm.dao.request.OrderSearchCriteria;
-import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.model.Order;
 import org.hibernate.envers.AuditReaderFactory;
@@ -27,7 +27,7 @@ public class OrderDaoImpl implements OrderDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final PersistenceManager<Order> persistenceManager;
+    private final OrderManagerImpl persistenceManager;
 
     private static final String GET_ORDER_BY_USER_ID =
             "SELECT o FROM Order o WHERE o.user.id=:userId ";
@@ -36,13 +36,8 @@ public class OrderDaoImpl implements OrderDao {
 
 
     @Autowired
-    public OrderDaoImpl(PersistenceManager<Order> persistenceManager) {
+    public OrderDaoImpl(OrderManagerImpl persistenceManager) {
         this.persistenceManager = persistenceManager;
-    }
-
-    @PostConstruct
-    private void init() {
-        persistenceManager.setType(Order.class);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.epam.esm.service;
 
-import com.epam.esm.dao.GiftCertificateDAO;
+import com.epam.esm.dao.GiftCertificateDao;
 import com.epam.esm.dao.impl.GiftCertificateDaoImpl;
 import com.epam.esm.dao.request.CertificateSearchCriteria;
 import com.epam.esm.dao.sort.SortBy;
@@ -21,7 +21,7 @@ import java.util.List;
 
 class GiftCertificateServiceImplTest {
 
-    private GiftCertificateDAO giftCertificateDAO;
+    private GiftCertificateDao giftCertificateDAO;
     private GiftCertificateService giftCertificateService;
     private int page;
     private int size;
@@ -117,7 +117,7 @@ class GiftCertificateServiceImplTest {
             giftCertificateService.delete(givenCertificate.getId());
         } catch (ServiceException e) {
             Assertions.assertEquals(
-                    "Failed to get certificate by id = " + givenCertificate.getId(), e.getMessage());
+                    "Certificate with id = " + givenCertificate.getId() + " not found", e.getMessage());
         }
     }
 

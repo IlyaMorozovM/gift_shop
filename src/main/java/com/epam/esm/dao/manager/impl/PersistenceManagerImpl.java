@@ -5,19 +5,12 @@ import com.epam.esm.dao.sort.SortBy;
 import com.epam.esm.dao.sort.SortType;
 import com.epam.esm.model.BaseModel;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.NoResultException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-
+import javax.persistence.*;
 import java.util.List;
 
 @Component
-@Scope("prototype")
 @EntityScan(basePackages = "com.epam.esm.model")
 public class PersistenceManagerImpl<T extends BaseModel> implements PersistenceManager<T> {
 

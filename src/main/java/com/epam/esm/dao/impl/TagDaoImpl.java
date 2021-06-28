@@ -1,14 +1,16 @@
 package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.TagDao;
+import com.epam.esm.dao.manager.impl.TagManagerImpl;
 import com.epam.esm.dao.request.TagSearchCriteria;
-import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.model.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -17,7 +19,7 @@ public class TagDaoImpl implements TagDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final PersistenceManager<Tag> persistenceManager;
+    private final TagManagerImpl persistenceManager;
 
     private static final String GET_TAG_BY_NAME = "SELECT t FROM Tag t WHERE t.name=:name ";
     private static final String GET_ALL_TAGS = "SELECT t FROM Tag t ";
@@ -41,13 +43,8 @@ public class TagDaoImpl implements TagDao {
                     "ORDER BY count DESC LIMIT 1";
 
     @Autowired
-    public TagDaoImpl(PersistenceManager<Tag> persistenceManager) {
+    public TagDaoImpl(TagManagerImpl persistenceManager) {
         this.persistenceManager = persistenceManager;
-    }
-
-    @PostConstruct
-    private void init() {
-        persistenceManager.setType(Tag.class);
     }
 
     @Override

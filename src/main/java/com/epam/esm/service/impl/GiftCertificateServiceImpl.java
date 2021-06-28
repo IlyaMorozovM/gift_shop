@@ -1,6 +1,6 @@
 package com.epam.esm.service.impl;
 
-import com.epam.esm.dao.GiftCertificateDAO;
+import com.epam.esm.dao.GiftCertificateDao;
 import com.epam.esm.dao.sort.SortBy;
 import com.epam.esm.dao.sort.SortType;
 import com.epam.esm.model.Tag;
@@ -28,11 +28,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     private static final Logger LOGGER = LogManager.getLogger(GiftCertificateServiceImpl.class);
 
-    private final GiftCertificateDAO giftCertificateDao;
+    private final GiftCertificateDao giftCertificateDao;
     private final TagService tagService;
 
     @Autowired
-    public GiftCertificateServiceImpl(GiftCertificateDAO giftCertificateDao, TagService tagService) {
+    public GiftCertificateServiceImpl(GiftCertificateDao giftCertificateDao, TagService tagService) {
         this.giftCertificateDao = giftCertificateDao;
         this.tagService = tagService;
     }

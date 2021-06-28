@@ -2,6 +2,7 @@ package com.epam.esm.dao;
 
 import com.epam.esm.dao.impl.GiftCertificateDaoImpl;
 import com.epam.esm.dao.manager.PersistenceManager;
+import com.epam.esm.dao.manager.impl.GiftCertificateManagerImpl;
 import com.epam.esm.dao.manager.impl.PersistenceManagerImpl;
 import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.model.Tag;
@@ -15,8 +16,8 @@ import java.util.*;
 
 class GiftCertificateDaoImplTest {
 
-    private GiftCertificateDAO giftCertificateDAO;
-    private PersistenceManager<GiftCertificate> service;
+    private GiftCertificateDao giftCertificateDAO;
+    private GiftCertificateManagerImpl service;
 
     private static final String GET_CERTIFICATE_BY_NAME = "SELECT g FROM GiftCertificate g WHERE g.name=:name";
     private static final String GET_CERTIFICATE_COUNT =
@@ -26,7 +27,7 @@ class GiftCertificateDaoImplTest {
     @BeforeEach
     public void init() {
         size = 10;
-        service = Mockito.mock(PersistenceManagerImpl.class);
+        service = Mockito.mock(GiftCertificateManagerImpl.class);
         giftCertificateDAO = new GiftCertificateDaoImpl(service);
     }
 

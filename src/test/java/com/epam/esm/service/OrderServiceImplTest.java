@@ -93,17 +93,6 @@ class OrderServiceImplTest {
     }
 
     @Test
-    void whenTryAddEmptyOrder_thenThrowException() {
-        Order order = new Order();
-
-        try {
-            orderService.create(order);
-        } catch (ServiceException e) {
-            Assertions.assertEquals("Failed to validate: cost must be positive", e.getMessage());
-        }
-    }
-
-    @Test
     void whenTryDeleteOrder_thenThrowException() {
         Order given = initOrder();
 

@@ -1,38 +1,27 @@
 package com.epam.esm.dao.impl;
 
-import com.epam.esm.dao.GiftCertificateDAO;
+import com.epam.esm.dao.GiftCertificateDao;
+import com.epam.esm.dao.manager.impl.GiftCertificateManagerImpl;
 import com.epam.esm.dao.request.CertificateSearchCriteria;
-import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.dao.sort.SortType;
+import com.epam.esm.model.GiftCertificate;
 import com.epam.esm.model.Tag;
 import com.google.common.base.CaseFormat;
-import com.epam.esm.model.GiftCertificate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.AbstractQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
+import javax.persistence.*;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class GiftCertificateDaoImpl implements GiftCertificateDAO {
+public class GiftCertificateDaoImpl implements GiftCertificateDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final PersistenceManager<GiftCertificate> persistenceManager;
+    private final GiftCertificateManagerImpl persistenceManager;
 
     private static final String GET_CERTIFICATE_BY_NAME =
             "SELECT g FROM GiftCertificate g WHERE g.name=:name ";
@@ -40,13 +29,8 @@ public class GiftCertificateDaoImpl implements GiftCertificateDAO {
             "SELECT count(g.id) FROM GiftCertificate g ";
 
     @Autowired
-    public GiftCertificateDaoImpl(PersistenceManager<GiftCertificate> persistenceManager) {
+    public GiftCertificateDaoImpl(GiftCertificateManagerImpl persistenceManager) {
         this.persistenceManager = persistenceManager;
-    }
-
-    @PostConstruct
-    private void init() {
-        persistenceManager.setType(GiftCertificate.class);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.epam.esm.dao;
 import com.epam.esm.dao.impl.OrderDaoImpl;
 import com.epam.esm.dao.request.OrderSearchCriteria;
 import com.epam.esm.dao.manager.PersistenceManager;
-import com.epam.esm.dao.manager.impl.PersistenceManagerImpl;
+import com.epam.esm.dao.manager.impl.OrderManagerImpl;
 import com.epam.esm.model.Order;
 import com.epam.esm.model.User;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +18,7 @@ import java.util.List;
 class OrderDaoImplTest {
 
     private OrderDao orderDao;
-    private PersistenceManager<Order> service;
+    private OrderManagerImpl service;
 
     private static final String GET_ALL_ORDERS = "SELECT o FROM Order o ";
     private static final String GET_ORDER_COUNT = "SELECT count(o.id) FROM Order o ";
@@ -47,7 +47,7 @@ class OrderDaoImplTest {
     public void init() {
         size = 10;
         page = 1;
-        service = Mockito.mock(PersistenceManagerImpl.class);
+        service = Mockito.mock(OrderManagerImpl.class);
         orderDao = new OrderDaoImpl(service);
     }
 

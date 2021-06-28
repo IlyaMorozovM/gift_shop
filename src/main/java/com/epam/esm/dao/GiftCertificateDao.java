@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Ilya Morozov
  */
-public interface GiftCertificateDAO {
+public interface GiftCertificateDao {
 
     /**
      * Retrieves data of {@code GiftCertificate} from

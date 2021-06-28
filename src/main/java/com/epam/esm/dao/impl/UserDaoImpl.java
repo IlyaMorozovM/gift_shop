@@ -1,8 +1,8 @@
 package com.epam.esm.dao.impl;
 
 import com.epam.esm.dao.UserDao;
+import com.epam.esm.dao.manager.impl.UserManagerImpl;
 import com.epam.esm.dao.request.UserSearchCriteria;
-import com.epam.esm.dao.manager.PersistenceManager;
 import com.epam.esm.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,20 +14,15 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private final PersistenceManager<User> persistenceManager;
+    private final UserManagerImpl persistenceManager;
 
     private static final String GET_USER_BY_NAME = "SELECT u FROM User u WHERE u.login=:login ";
     private static final String GET_ALL_USERS = "SELECT u FROM User u ";
     private static final String GET_USER_COUNT = "SELECT count(u.id) FROM User u ";
 
     @Autowired
-    public UserDaoImpl(PersistenceManager<User> persistenceManager) {
+    public UserDaoImpl(UserManagerImpl persistenceManager) {
        this.persistenceManager = persistenceManager;
-    }
-
-    @PostConstruct
-    private void init() {
-        persistenceManager.setType(User.class);
     }
 
     @Override
