@@ -144,22 +144,22 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         try {
             if (giftCertificateDao.getById(id) != null) {
                 GiftCertificate giftCertificateFromDB = giftCertificateDao.getById(id);
-                giftCertificate.setLastUpdateDate(LocalDateTime.now());
-                giftCertificate.setCreateDate(giftCertificateFromDB.getCreateDate());
+                giftCertificateFromDB.setLastUpdateDate(LocalDateTime.now());
+                giftCertificateFromDB.setPrice(giftCertificate.getPrice());
 
-                addCertificateTags(giftCertificate);
+                giftCertificate = giftCertificateDao.update(giftCertificateFromDB);
 
-                giftCertificate = giftCertificateDao.update(giftCertificate);
+
                 if (giftCertificate == null) {
                     LOGGER.error("Failed to update certificate");
                     throw new ServiceException("Failed to update certificate",
                             ErrorCodeEnum.FAILED_TO_UPDATE_CERTIFICATE);
                 }
                 return giftCertificate;
-            } else {
-                throw new ServiceException("Certificate does not exist",
+                } else {
+                    throw new ServiceException("Certificate with id = " + id + " not found",
                         ErrorCodeEnum.FAILED_TO_UPDATE_CERTIFICATE);
-            }
+                }
         } catch (DataAccessException e) {
             LOGGER.error("Following exception was thrown in updateGiftCertificate(): " + e.getMessage());
             throw new ServiceException("Failed to update certificate", ErrorCodeEnum.FAILED_TO_UPDATE_CERTIFICATE);

@@ -75,7 +75,7 @@ public class CertificateController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public EntityModel<GiftCertificateDto> update(
             @RequestBody GiftCertificate giftCertificate, @PathVariable int id) throws ServiceException {
         return modelAssembler.toModel(
