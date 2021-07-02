@@ -1,0 +1,45 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.0'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.epam.esm'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'com.google.guava', name: 'guava', version: 'r05'
+	compile group: 'org.hibernate', name: 'hibernate-envers', version: '5.4.27.Final'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.4.0'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.0'
+	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.3.0'
+	compile group: 'org.springframework', name: 'spring-jdbc', version: '5.3.0'
+	compile group: 'org.springframework', name: 'spring-tx', version: '5.3.0'
+	compile group: 'org.springframework.hateoas', name: 'spring-hateoas', version: '1.2.1'
+	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
+	compile group: 'org.json', name: 'json', version: '20200518'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.3'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
+	compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4")
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.22'
+	compile group: 'com.zaxxer', name: 'HikariCP', version: '3.4.5'
+	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+	testCompile group: 'com.h2database', name: 'h2', version: '1.4.200'
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.1'
+	testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.1'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
